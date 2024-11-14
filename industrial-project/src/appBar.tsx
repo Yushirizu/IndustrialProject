@@ -5,8 +5,15 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import * as React from "react";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
 import { useSession } from "next-auth/react";
-import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
+import { Avatar } from "@mui/material";
 
 const pages = [
   { name: "Index", href: "/" },
@@ -15,7 +22,6 @@ const pages = [
 ];
 
 function ResponsiveAppBar() {
-  const { data: session } = useSession();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -43,43 +49,46 @@ function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
-          {session && (
-            <div>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit">
-                {session?.user.image ? (
-                  <Avatar
-                    alt={session.user.name || ""}
-                    src={session.user.image || ""}
-                  />
-                ) : (
-                  <Avatar>{session?.user.name?.charAt(0)}</Avatar>
-                )}
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}>
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-              </Menu>
-            </div>
-          )}
+          {/* {session && (
+						<div>
+							<IconButton
+								size="large"
+								aria-label="account of current user"
+								aria-controls="menu-appbar"
+								aria-haspopup="true"
+								onClick={handleMenu}
+								color="inherit"
+							>
+								avatar=
+								{session?.user.image ? (
+									<Avatar
+										alt={session.user.name || ""}
+										src={session.user.image || ""}
+									/>
+								) : (
+									<Avatar>{session?.user.name?.charAt(0)}</Avatar>
+								)}
+							</IconButton>
+							<Menu
+								id="menu-appbar"
+								anchorEl={anchorEl}
+								anchorOrigin={{
+									vertical: "top",
+									horizontal: "right",
+								}}
+								keepMounted
+								transformOrigin={{
+									vertical: "top",
+									horizontal: "right",
+								}}
+								open={Boolean(anchorEl)}
+								onClose={handleClose}
+							>
+								<MenuItem onClick={handleClose}>Profile</MenuItem>
+								<MenuItem onClick={handleClose}>My account</MenuItem>
+							</Menu>
+						</div>
+					)} */}
         </Toolbar>
       </Container>
     </AppBar>
