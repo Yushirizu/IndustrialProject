@@ -4,7 +4,7 @@ import { type AppType } from "next/app";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import ButtonAppBar from "src/appBar";
+import ButtonAppBar from "../appBar";
 
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";

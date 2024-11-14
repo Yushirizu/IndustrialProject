@@ -23,6 +23,7 @@ const pages = [
 
 function ResponsiveAppBar() {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+	// const { data: session } = useSession();
 
 	const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
