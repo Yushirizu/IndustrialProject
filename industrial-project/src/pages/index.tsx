@@ -11,6 +11,7 @@ import {
 	Typography,
 } from "@mui/material";
 import { signIn, signOut, useSession } from "next-auth/react";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 
 export default function Home() {
 	const [activity, setactivity] = useState<Array<any>>();
@@ -44,7 +45,7 @@ export default function Home() {
 									src={session.user.image || ""}
 								/>
 							) : (
-								<Avatar>{session?.user.name?.charAt(0)}</Avatar>
+								<AccountCircle />
 							)
 						}
 						action={
