@@ -4,6 +4,7 @@ import { type AppType } from "next/app";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import ButtonAppBar from "src/appBar";
 
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -21,12 +22,15 @@ const MyApp: AppType<{ session: Session | null }> = ({
 	pageProps: { session, ...pageProps },
 }) => {
 	return (
-		<SessionProvider session={session}>
-			<ThemeProvider theme={darkTheme}>
-				<CssBaseline />
-				<Component {...pageProps} />
-			</ThemeProvider>
-		</SessionProvider>
+		<>
+			<ButtonAppBar />
+			<SessionProvider session={session}>
+				<ThemeProvider theme={darkTheme}>
+					<CssBaseline />
+					<Component {...pageProps} />
+				</ThemeProvider>
+			</SessionProvider>
+		</>
 	);
 };
 
