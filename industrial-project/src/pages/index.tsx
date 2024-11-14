@@ -10,8 +10,6 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import Grid from "@mui/material/Grid2";
-import { DataGrid } from "@mui/x-data-grid";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function Home() {
@@ -41,21 +39,6 @@ export default function Home() {
         <Typography variant="body1">
           Connecté en tant que: {session?.user.name}
         </Typography>
-
-        <Grid container spacing={2}>
-          <Grid size={8}>
-            <Card>
-              <CardHeader title="Historique des mouvements" />
-              <CardContent></CardContent>
-            </Card>
-          </Grid>
-          <Grid size={4}>
-            <Card>
-              <CardHeader title="Relais" />
-              <CardContent></CardContent>
-            </Card>
-          </Grid>
-        </Grid>
       </Container>
     </>
   );
