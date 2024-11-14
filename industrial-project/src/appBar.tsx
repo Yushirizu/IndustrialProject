@@ -31,7 +31,6 @@ function ResponsiveAppBar() {
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
-	const { data: session } = useSession();
 
 	return (
 		<AppBar
@@ -55,7 +54,7 @@ function ResponsiveAppBar() {
 							</Button>
 						))}
 					</Box>
-					{session && (
+					{/* {session && (
 						<div>
 							<IconButton
 								size="large"
@@ -94,7 +93,7 @@ function ResponsiveAppBar() {
 								<MenuItem onClick={handleClose}>My account</MenuItem>
 							</Menu>
 						</div>
-					)}
+					)} */}
 				</Toolbar>
 			</Container>
 		</AppBar>
