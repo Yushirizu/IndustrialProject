@@ -8,6 +8,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 import Switch from "@mui/material/Switch";
 import Head from "next/head";
 import Grid from "@mui/material/Grid2";
+import { LineChart } from "@mui/x-charts";
 import { DataGrid } from "@mui/x-data-grid";
 import { tableLive } from "../strucTables";
 import {
@@ -22,14 +23,21 @@ import {
 } from "@mui/material";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
+import { LinearScaleSharp } from "@mui/icons-material";
 
 export default function Home() {
 	const [live, setLive] = useState<Array<any>>();
 	useEffect(() => {
-		fetch("/api/getHistoric", { method: "POST" })
+		fetch("/api/getLive", { method: "POST" })
 			.then((response) => response.json())
 			.then((res) => {
-				setLive(res);
+				let cpt = 0;
+				const dataset = res.map((item: any) => ({
+					x: cpt++,
+					y: res.ActivePower,
+				}));
+				console.log(dataset);
+				setLive(dataset);
 			});
 	}, []);
 
@@ -51,23 +59,14 @@ export default function Home() {
 				maxWidth="xl"
 				sx={{ mt: 4 }}
 			>
-				<Grid
-					container
-					spacing={2}
-				>
-					<Grid size={12}>
-						<Card>
-							<CardHeader title="Relais" />
-							<CardContent>
-								<DataGrid
-									columns={tableLive}
-									hideFooter
-									rows={live}
-								/>
-							</CardContent>
-						</Card>
-					</Grid>
-				</Grid>
+				<LineChart
+					dataset={live}
+					xAxis={[{ dataKey: "x" }]}
+					series={[{ dataKey: "y" }]}
+					height={300}
+					margin={{ left: 30, right: 30, top: 30, bottom: 30 }}
+					grid={{ vertical: true, horizontal: true }}
+				/>
 			</Container>
 		</>
 	);
