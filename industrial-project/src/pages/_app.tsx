@@ -33,4 +33,4 @@ const MyApp: AppType<{ session: Session | null }> = ({
 };
 
 export default MyApp;
-export { Session };
+//export { Session };
