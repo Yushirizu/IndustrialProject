@@ -79,6 +79,7 @@ export default function Live() {
 						md={6}
 					>
 						<Card>
+              
 							<CardHeader title="Caps" />
 							<CardContent>
 								<p>Feed Cap Carre: {latestData.FeedCapCarre}</p>

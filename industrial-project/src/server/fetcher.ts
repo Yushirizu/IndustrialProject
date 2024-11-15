@@ -13,7 +13,6 @@ export function initWS() {
 		let data;
 		try {
 			data = JSON.parse(msg.data);
-			console.log("Données reçues:", data.payload);
 		} catch (error) {
 			console.error("Données reçues ne sont pas un objet JSON:", msg.data);
 			return;

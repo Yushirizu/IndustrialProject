@@ -26,18 +26,20 @@ import { useState, useEffect } from "react";
 import { LinearScaleSharp } from "@mui/icons-material";
 
 export default function Home() {
-	const [live, setLive] = useState<Array<any>>();
+	const [chart, setChart] = useState<Array<any>>();
 	useEffect(() => {
-		fetch("/api/getLive", { method: "POST" })
+		fetch("/api/getCharts", { method: "POST" })
 			.then((response) => response.json())
 			.then((res) => {
 				let cpt = 0;
-				const dataset = res.map((item: any) => ({
-					x: cpt++,
-					y: res.ActivePower,
-				}));
-				console.log(dataset);
-				setLive(dataset);
+				const dataset = res.map((item: any) => [
+					{
+						x: cpt++,
+						y: res,
+					},
+				]);
+				console.log(res);
+				setChart(dataset);
 			});
 	}, []);
 
@@ -60,7 +62,7 @@ export default function Home() {
 				sx={{ mt: 4 }}
 			>
 				<LineChart
-					dataset={live}
+					dataset={chart}
 					xAxis={[{ dataKey: "x" }]}
 					series={[{ dataKey: "y" }]}
 					height={300}
