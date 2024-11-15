@@ -75,4 +75,13 @@ model VerificationToken {
 }
 
 model Live {
+    id             Int   @id @default(autoincrement())
+    volt           Float
+    air            Float
+    current        Float
+    ActivePower    Float
+    PowerFactor    Float
+    EnergyConsumed Float
+    FeedCapCarre   Float
+    FeedCapRound   Float
 }
