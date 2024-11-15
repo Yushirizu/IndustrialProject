@@ -2,43 +2,69 @@ import { db } from "./db";
 
 const ws: WebSocket = new WebSocket("ws://127.0.0.1:1881/ws/yape");
 
+let receivedData: { [key: string]: number } = {};
+
 export function initWS() {
 	ws.addEventListener("open", (event) => {
 		console.log("Websocket ouvert");
 	});
 
 	ws.addEventListener("message", (msg) => {
-		console.log(msg.data);
-		const data = JSON.parse(msg.data);
+		let data;
+		try {
+			data = JSON.parse(msg.data);
+			console.log("Données reçues:", data.payload);
+		} catch (error) {
+			console.error("Données reçues ne sont pas un objet JSON:", msg.data);
+			return;
+		}
 
-		// Vérifiez que toutes les valeurs nécessaires sont présentes
-		if (
-			data.volt !== undefined &&
-			data.air !== undefined &&
-			data.current !== undefined &&
-			data.ActivePower !== undefined &&
-			data.PowerFactor !== undefined &&
-			data.EnergyConsumed !== undefined &&
-			data.FeedCapCarre !== undefined &&
-			data.FeedCapRound !== undefined
-		) {
+		// Ajoutez la donnée reçue au tableau
+		receivedData[data.topic] = data.payload;
+
+		// Si toutes les valeurs nécessaires ont été reçues, traitez-les
+		const requiredKeys = [
+			"volt",
+			"air",
+			"current",
+			"ActivePower",
+			"PowerFactor",
+			"EC",
+			"FCC",
+			"FCR",
+		];
+
+		if (requiredKeys.every((key) => key in receivedData)) {
+			const {
+				volt,
+				air,
+				current,
+				ActivePower,
+				PowerFactor,
+				EC: EnergyConsumed,
+				FCC: FeedCapCarre,
+				FCR: FeedCapRound,
+			} = receivedData;
+
+			// Réinitialisez le tableau pour les prochaines données
+			receivedData = {};
+
+			// Insérez les données dans la base de données
 			db.live
 				.create({
 					data: {
-						volt: data.volt,
-						air: data.air,
-						current: data.current,
-						ActivePower: data.ActivePower,
-						PowerFactor: data.PowerFactor,
-						EnergyConsumed: data.EnergyConsumed,
-						FeedCapCarre: data.FeedCapCarre,
-						FeedCapRound: data.FeedCapRound,
+						volt: Number(volt),
+						air: Number(air),
+						current: Number(current),
+						ActivePower: Number(ActivePower),
+						PowerFactor: Number(PowerFactor),
+						EnergyConsumed: Number(EnergyConsumed),
+						FeedCapCarre: Number(FeedCapCarre),
+						FeedCapRound: Number(FeedCapRound),
 					},
 				})
 				.then(() => console.log("Ajouté"))
 				.catch((error) => console.error("Erreur lors de l'ajout:", error));
-		} else {
-			console.error("Données manquantes ou invalides:", data);
 		}
 	});
 }

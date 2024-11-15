@@ -1,12 +1,24 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { db } from "~/server/db";
 
-export default function getRelais(req: NextApiRequest, res: NextApiResponse) {
+export default async function getLive(
+	req: NextApiRequest,
+	res: NextApiResponse
+) {
 	if (req.method === "POST") {
-		db.live.findMany().then((msg) => {
-			res.status(200).json(msg);
-		});
-		console.log("GET /api/getLive");
+		try {
+			// Récupérez les données de la base de données
+			const liveData = await db.live.findMany();
+
+			// Envoyez les données dans la réponse
+			res.status(200).json(liveData);
+			console.log("Données en direct:", liveData);
+		} catch (error) {
+			console.error("Erreur lors de la récupération des données:", error);
+			res
+				.status(500)
+				.json({ error: "Erreur lors de la récupération des données" });
+		}
 	} else {
 		res.status(404).send("Not Found");
 	}
