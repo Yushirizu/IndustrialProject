@@ -8,7 +8,6 @@ export default function getRelais(req: NextApiRequest, res: NextApiResponse) {
 		// 	res.status(200).json(relais);
 		// });
 		console.log("GET /api/getLive");
-		res.status(200).send("YAPI");
 	} else {
 		res.status(404).send("Not Found");
 	}
