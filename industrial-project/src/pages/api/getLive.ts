@@ -7,7 +7,9 @@ export default function getRelais(req: NextApiRequest, res: NextApiResponse) {
 		// db.relai.findMany().then((relais) => {
 		// 	res.status(200).json(relais);
 		// });
-		console.log("GET /api/getLive");
+
+		// Envoyer la réponse avec les données
+		res.status(200).json(res);
 	} else {
 		res.status(404).send("Not Found");
 	}
