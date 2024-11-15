@@ -5,9 +5,9 @@ import Container from "@mui/material/Container";
 import { LineChart } from "@mui/x-charts";
 
 export default function Home() {
-	const [chartData, setChartData] = useState<
-		Array<{ id: number; volt: number }>
-	>([]);
+	const [chartData, setChartData] = useState<Array<{ id: number; ec: number }>>(
+		[]
+	);
 
 	useEffect(() => {
 		fetch("/api/getCharts", { method: "POST" })
@@ -15,7 +15,7 @@ export default function Home() {
 			.then((res) => {
 				const dataset = res.map((item: any) => ({
 					id: item.id,
-					volt: item.EnergyConsumed,
+					ec: item.EnergyConsumed,
 				}));
 				setChartData(dataset);
 			});
@@ -41,7 +41,7 @@ export default function Home() {
 			>
 				<LineChart
 					xAxis={[{ dataKey: "id" }]}
-					series={[{ dataKey: "volt" }]}
+					series={[{ dataKey: "ec" }]}
 					dataset={chartData}
 					width={1200}
 					height={400}
