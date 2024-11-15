@@ -1,39 +1,23 @@
 import * as React from "react";
-import { makeStyles } from "@mui/styles";
-import FormLabel from "@mui/material/FormLabel";
-import FormControl from "@mui/material/FormControl";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormHelperText from "@mui/material/FormHelperText";
-import Switch from "@mui/material/Switch";
-import Head from "next/head";
-import Grid from "@mui/material/Grid2";
-import { LineChart } from "@mui/x-charts";
-import { DataGrid } from "@mui/x-data-grid";
-import { tableLive } from "../strucTables";
-import {
-	Card,
-	Container,
-	CardHeader,
-	Avatar,
-	IconButton,
-	CardContent,
-	Button,
-	Typography,
-} from "@mui/material";
-import { signIn, signOut, useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
-import { LinearScaleSharp } from "@mui/icons-material";
+import Head from "next/head";
+import Container from "@mui/material/Container";
+import { LineChart } from "@mui/x-charts";
 
 export default function Home() {
-	const [chart, setChart] = useState<Array<any>>();
-	const [cpt, setcpt] = useState();
+	const [chartData, setChartData] = useState<
+		Array<{ id: number; volt: number }>
+	>([]);
+
 	useEffect(() => {
 		fetch("/api/getCharts", { method: "POST" })
 			.then((response) => response.json())
 			.then((res) => {
-				const numbers: number[] = res.map((item: any) => item.EnergyConsumed);
-				console.log(numbers);
+				const dataset = res.map((item: any) => ({
+					id: item.id,
+					volt: item.EnergyConsumed,
+				}));
+				setChartData(dataset);
 			});
 	}, []);
 
@@ -56,12 +40,9 @@ export default function Home() {
 				sx={{ mt: 4 }}
 			>
 				<LineChart
-					xAxis={[{ data: [cpt] }]}
-					series={[
-						{
-							data: chart,
-						},
-					]}
+					xAxis={[{ dataKey: "id" }]}
+					series={[{ dataKey: "volt" }]}
+					dataset={chartData}
 					height={300}
 					margin={{ left: 30, right: 30, top: 30, bottom: 30 }}
 					grid={{ vertical: true, horizontal: true }}

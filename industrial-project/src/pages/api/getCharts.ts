@@ -9,6 +9,7 @@ export default async function getCharts(
 		const historicData = await db.live.findMany({
 			select: {
 				EnergyConsumed: true,
+				id: true,
 			},
 		});
 		res.status(200).json(historicData);
