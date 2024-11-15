@@ -43,8 +43,9 @@ export default function Home() {
 					xAxis={[{ dataKey: "id" }]}
 					series={[{ dataKey: "volt" }]}
 					dataset={chartData}
-					height={300}
-					margin={{ left: 30, right: 30, top: 30, bottom: 30 }}
+					width={1200}
+					height={400}
+					margin={{ left: 100, right: 30, top: 30, bottom: 30 }}
 					grid={{ vertical: true, horizontal: true }}
 				/>
 			</Container>
