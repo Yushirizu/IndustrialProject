@@ -12,7 +12,6 @@ export default async function getCharts(
 			},
 		});
 		res.status(200).json(historicData);
-		console.log(historicData);
 	} else {
 		res.status(404).send("Not Found");
 	}

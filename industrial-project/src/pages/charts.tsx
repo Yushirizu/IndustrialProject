@@ -27,19 +27,13 @@ import { LinearScaleSharp } from "@mui/icons-material";
 
 export default function Home() {
 	const [chart, setChart] = useState<Array<any>>();
+	const [cpt, setcpt] = useState();
 	useEffect(() => {
 		fetch("/api/getCharts", { method: "POST" })
 			.then((response) => response.json())
 			.then((res) => {
-				let cpt = 0;
-				const dataset = res.map((item: any) => [
-					{
-						x: cpt++,
-						y: res,
-					},
-				]);
-				console.log(res);
-				setChart(dataset);
+				const numbers: number[] = res.map((item: any) => item.EnergyConsumed);
+				console.log(numbers);
 			});
 	}, []);
 
@@ -62,9 +56,12 @@ export default function Home() {
 				sx={{ mt: 4 }}
 			>
 				<LineChart
-					dataset={chart}
-					xAxis={[{ dataKey: "x" }]}
-					series={[{ dataKey: "y" }]}
+					xAxis={[{ data: [cpt] }]}
+					series={[
+						{
+							data: chart,
+						},
+					]}
 					height={300}
 					margin={{ left: 30, right: 30, top: 30, bottom: 30 }}
 					grid={{ vertical: true, horizontal: true }}
