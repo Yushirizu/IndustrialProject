@@ -7,6 +7,7 @@ import Link from "@mui/material/Link";
 import * as React from "react";
 import { signOut, useSession, signIn } from "next-auth/react";
 import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 
 const pages = [
   { name: "Index", href: "/" },
@@ -43,7 +44,7 @@ function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
-          {
+          {session && (
             <div>
               <IconButton
                 size="large"
@@ -77,19 +78,9 @@ function ResponsiveAppBar() {
                 onClose={handleClose}>
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
-
-                {session?.user.isAdmin ? (
-                  <MenuItem onClick={handleClose}>Admin page</MenuItem>
-                ) : null}
-
-                {session ? (
-                  <MenuItem onClick={() => signOut()}>LOGOUT</MenuItem>
-                ) : (
-                  <MenuItem onClick={() => signIn()}>LOGIN</MenuItem>
-                )}
               </Menu>
             </div>
-          }
+          )}
         </Toolbar>
       </Container>
     </AppBar>
