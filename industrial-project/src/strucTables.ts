@@ -1,6 +1,7 @@
 import { GridColDef } from "@mui/x-data-grid";
 
 export const tableLive: GridColDef[] = [
+	{ field: "id", headerName: "ID", width: 50 },
 	{ field: "volt", headerName: "Volt", width: 50 },
 	{ field: "air", headerName: "Air consumption", width: 50 },
 	{ field: "current", headerName: "Current", width: 50 },
