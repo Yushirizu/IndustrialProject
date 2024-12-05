@@ -5,24 +5,48 @@ import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
+import { useSession } from "next-auth/react";
 
 export default function Live() {
+	const { data: session, status } = useSession();
 	const [liveData, setLiveData] = useState<any>(null);
+	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
-		async function fetchData() {
-			const response = await fetch("/api/getLive", {
-				method: "POST",
-			});
-			const data = await response.json();
-			setLiveData(data);
-		}
+		if (status === "authenticated") {
+			async function fetchData() {
+				try {
+					const response = await fetch("/api/getLive", {
+						method: "POST",
+					});
+					if (!response.ok) {
+						throw new Error("Failed to fetch data");
+					}
+					const data = await response.json();
+					setLiveData(data);
+				} catch (error) {
+					setError("You are not connected to the server.");
+				}
+			}
 
-		fetchData();
-	}, []);
+			fetchData();
+		}
+	}, [status]);
+
+	if (status === "loading") {
+		return <div>Loading...</div>;
+	}
+
+	if (status === "unauthenticated") {
+		return <div>Please sign in to view this page.</div>;
+	}
+
+	if (error) {
+		return <div>{error}</div>;
+	}
 
 	if (!liveData) {
-		return <div>Loading...</div>;
+		return <div>Loading data...</div>;
 	}
 
 	const latestData = liveData[liveData.length - 1];
@@ -79,7 +103,6 @@ export default function Live() {
 						md={6}
 					>
 						<Card>
-              
 							<CardHeader title="Caps" />
 							<CardContent>
 								<p>Feed Cap Carre: {latestData.FeedCapCarre}</p>
