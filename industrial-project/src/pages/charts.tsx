@@ -3,11 +3,15 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import Container from "@mui/material/Container";
 import { BarChart, LineChart } from "@mui/x-charts";
+import { set } from "zod";
 
 export default function Home() {
 	const [chartData, setChartData] = useState<Array<{ id: number; ec: number }>>(
 		[]
 	);
+	const [barchartData, setbarChartData] = useState<
+		Array<{ id: number; ec: number }>
+	>([]);
 
 	useEffect(() => {
 		setInterval(() => {
@@ -21,6 +25,7 @@ export default function Home() {
 						fcr: item.FeedCapRound,
 					}));
 					setChartData(dataset);
+					setbarChartData(dataset.slice(-5));
 				});
 		}, 10000);
 	}, []);
@@ -59,7 +64,7 @@ export default function Home() {
 				<BarChart
 					xAxis={[{ dataKey: "id", scaleType: "band" }]}
 					series={[{ dataKey: "fcc" }, { dataKey: "fcr" }]}
-					dataset={chartData}
+					dataset={barchartData}
 					width={1200}
 					height={400}
 					margin={{ left: 100, right: 30, top: 30, bottom: 30 }}
