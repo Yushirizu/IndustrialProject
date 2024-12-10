@@ -20,13 +20,11 @@ export default function Home() {
 	};
 	const [live, setLive] = useState<Array<any>>();
 	useEffect(() => {
-		if (status === "authenticated") {
-			fetch("/api/getHistoric", { method: "POST" })
-				.then((response) => response.json())
-				.then((res) => {
-					setLive(res);
-				});
-		}
+		fetch("/api/getHistoric", { method: "POST" })
+			.then((response) => response.json())
+			.then((res) => {
+				setLive(res);
+			});
 	}, []);
 
 	return (
