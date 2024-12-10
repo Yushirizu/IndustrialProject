@@ -28,22 +28,17 @@ function ResponsiveAppBar() {
 	};
 
 	return (
-		<AppBar
-			position="static"
-			sx={{ backgroundColor: "transparent" }}
-		>
+		<AppBar position="static" sx={{ backgroundColor: "transparent" }}>
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
 					<Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
 						{pages.map((page) => (
 							<Button
 								key={page.name}
-								sx={{ my: 2, color: "white", display: "block" }}
-							>
+								sx={{ my: 2, color: "white", display: "block" }}>
 								<Link
 									href={page.href}
-									sx={{ textDecoration: "none", color: "white" }}
-								>
+									sx={{ textDecoration: "none", color: "white" }}>
 									{page.name}
 								</Link>
 							</Button>
@@ -57,8 +52,7 @@ function ResponsiveAppBar() {
 								aria-controls="menu-appbar"
 								aria-haspopup="true"
 								onClick={handleMenu}
-								color="inherit"
-							>
+								color="inherit">
 								{session?.user.image ? (
 									<Avatar
 										alt={session.user.name || ""}
@@ -81,8 +75,7 @@ function ResponsiveAppBar() {
 									horizontal: "right",
 								}}
 								open={Boolean(anchorEl)}
-								onClose={handleClose}
-							>
+								onClose={handleClose}>
 								{session?.user.isAdmin ? (
 									<MenuItem onClick={handleClose}>Admin page</MenuItem>
 								) : null}

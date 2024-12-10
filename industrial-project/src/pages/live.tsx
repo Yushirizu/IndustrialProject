@@ -56,25 +56,12 @@ export default function Live() {
 		<>
 			<Head>
 				<title>Live Data</title>
-				<link
-					rel="icon"
-					href="/favicon.ico"
-				/>
+				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<Container
-				maxWidth="xl"
-				sx={{ mt: 4 }}
-			>
-				<Grid
-					container
-					spacing={4}
-				>
-					<Grid
-						item
-						xs={12}
-						md={6}
-					>
+			<Container maxWidth="xl" sx={{ mt: 4 }}>
+				<Grid container spacing={4}>
+					<Grid item xs={12} md={6}>
 						<Card>
 							<CardHeader title="Power" />
 							<CardContent>
@@ -85,11 +72,7 @@ export default function Live() {
 							</CardContent>
 						</Card>
 					</Grid>
-					<Grid
-						item
-						xs={12}
-						md={6}
-					>
+					<Grid item xs={12} md={6}>
 						<Card>
 							<CardHeader title="Consumption" />
 							<CardContent>
@@ -98,11 +81,7 @@ export default function Live() {
 							</CardContent>
 						</Card>
 					</Grid>
-					<Grid
-						item
-						xs={12}
-						md={6}
-					>
+					<Grid item xs={12} md={6}>
 						<Card>
 							<CardHeader title="Caps" />
 							<CardContent>

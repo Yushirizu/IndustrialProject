@@ -47,8 +47,7 @@ function TrafficLight({ isActive }: { isActive: boolean }) {
 		<div
 			className={`${classes.trafficLight} ${
 				isActive ? classes.greenLight : classes.redLight
-			}`}
-		></div>
+			}`}></div>
 	);
 }
 
@@ -71,12 +70,8 @@ export default function SwitchesGroup() {
 		<FormControl
 			component="fieldset"
 			variant="standard"
-			className={classes.formControl}
-		>
-			<FormLabel
-				component="legend"
-				className={classes.formLabel}
-			>
+			className={classes.formControl}>
+			<FormLabel component="legend" className={classes.formLabel}>
 				Assign responsibility
 			</FormLabel>
 			<FormGroup className={classes.formGroup}>
