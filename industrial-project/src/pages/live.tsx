@@ -12,40 +12,30 @@ export default function Live() {
 		data: { user: { isAdmin: boolean } } | null;
 		status: string;
 	};
+	const ws: WebSocket = new WebSocket(
+		"wss://nodered.helhatechniquecharleroi.xyz/ws/tank"
+	);
 	const [liveData, setLiveData] = useState<any>(null);
-	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
-		if (status === "authenticated") {
-			async function fetchData() {
-				try {
-					const response = await fetch("/api/getLive", {
-						method: "POST",
-					});
-					if (!response.ok) {
-						throw new Error("Failed to fetch data");
-					}
-					const data = await response.json();
-					setLiveData(data);
-				} catch (error) {
-					setError("You are not connected to the server.");
-				}
-			}
+		ws.addEventListener("open", () => {
+			console.log("Websocket ouvert");
+		});
 
-			fetchData();
-		} else if (session?.user.isAdmin === false) {
-			setError("Vous n'êtes pas autorisé à accéder à cette page.");
-		} else {
-			setError("Please sign in to view this page.");
-		}
-	}, [status]);
+		ws.addEventListener("message", (msg) => {
+			let data;
+			try {
+				data = JSON.parse(msg.data);
+				setLiveData(data);
+			} catch (error) {
+				console.error("Données reçues ne sont pas un objet JSON:", msg.data);
+				return;
+			}
+		});
+	}, []);
 
 	if (status === "loading") {
 		return <div>Loading...</div>;
-	}
-
-	if (error) {
-		return <div>{error}</div>;
 	}
 
 	if (!liveData) {
@@ -65,7 +55,7 @@ export default function Live() {
 						<Card>
 							<CardHeader title="Power" />
 							<CardContent>
-								<p>Voltage: {liveData.volt}</p>
+								<p>Voltage: {liveData}</p>
 								<p>Current: {liveData.current}</p>
 								<p>Active Power: {liveData.ActivePower}</p>
 								<p>Power Factor: {liveData.PowerFactor}</p>
