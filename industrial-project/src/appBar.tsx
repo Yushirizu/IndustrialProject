@@ -83,13 +83,6 @@ function ResponsiveAppBar() {
 								open={Boolean(anchorEl)}
 								onClose={handleClose}
 							>
-								<MenuItem onClick={handleClose}>Profile</MenuItem>
-								<MenuItem onClick={handleClose}>My account</MenuItem>
-
-								{session?.user.isAdmin ? (
-									<MenuItem onClick={handleClose}>Admin page</MenuItem>
-								) : null}
-
 								{session ? (
 									<MenuItem onClick={() => signOut()}>LOGOUT</MenuItem>
 								) : (

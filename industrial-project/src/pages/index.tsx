@@ -41,12 +41,9 @@ export default function Home() {
 								: "Non connecté"
 						}
 					/>
-				</Card>
-
-				<Card>
-					<CardHeader
-						title={session?.user.isAdmin ? "Vous êtes admin" : null}
-					/>
+					<CardContent>
+						{session?.user.isAdmin ? "Vous êtes admin" : null}
+					</CardContent>
 				</Card>
 			</Container>
 		</>
