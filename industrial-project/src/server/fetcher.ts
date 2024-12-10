@@ -1,11 +1,12 @@
 import { db } from "./db";
+import { NextApiRequest, NextApiResponse } from "next";
 
-const ws: WebSocket = new WebSocket("ws://127.0.0.1:1881/ws/yape");
+const ws: WebSocket = new WebSocket("ws://127.0.0.1:1881/ws/historic");
 
 let receivedData: { [key: string]: number } = {};
 
 export function initWS() {
-	ws.addEventListener("open", (event) => {
+	ws.addEventListener("open", () => {
 		console.log("Websocket ouvert");
 	});
 
