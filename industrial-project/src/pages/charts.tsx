@@ -34,7 +34,7 @@ export default function Home() {
 						setChartData(dataset);
 						setbarChartData(dataset.slice(-5));
 					});
-			}, 10000);
+			}, 1000);
 		}
 	}, []);
 
