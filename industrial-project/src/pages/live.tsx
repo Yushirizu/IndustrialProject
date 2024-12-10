@@ -8,110 +8,92 @@ import Grid from "@mui/material/Grid";
 import { useSession } from "next-auth/react";
 
 export default function Live() {
-	const { data: session, status } = useSession();
-	const [liveData, setLiveData] = useState<any>(null);
-	const [error, setError] = useState<string | null>(null);
+  const { data: session, status } = useSession() as {
+    data: { user: { isAdmin: boolean } } | null;
+    status: string;
+  };
+  const [liveData, setLiveData] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
 
-	useEffect(() => {
-		if (status === "authenticated") {
-			async function fetchData() {
-				try {
-					const response = await fetch("/api/getLive", {
-						method: "POST",
-					});
-					if (!response.ok) {
-						throw new Error("Failed to fetch data");
-					}
-					const data = await response.json();
-					setLiveData(data);
-				} catch (error) {
-					setError("You are not connected to the server.");
-				}
-			}
+  useEffect(() => {
+    if (status === "authenticated") {
+      async function fetchData() {
+        try {
+          const response = await fetch("/api/getLive", {
+            method: "POST",
+          });
+          if (!response.ok) {
+            throw new Error("Failed to fetch data");
+          }
+          const data = await response.json();
+          setLiveData(data);
+        } catch (error) {
+          setError("You are not connected to the server.");
+        }
+      }
 
-			fetchData();
-		}
-	}, [status]);
+      fetchData();
+    } else if (session?.user.isAdmin === false) {
+      setError("Vous n'êtes pas autorisé à accéder à cette page.");
+    } else {
+      setError("Please sign in to view this page.");
+    }
+  }, [status]);
 
-	if (status === "loading") {
-		return <div>Loading...</div>;
-	}
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
 
-	if (status === "unauthenticated") {
-		return <div>Please sign in to view this page.</div>;
-	}
+  if (error) {
+    return <div>{error}</div>;
+  }
 
-	if (error) {
-		return <div>{error}</div>;
-	}
+  if (!liveData) {
+    return <div>Loading data...</div>;
+  }
 
-	if (!liveData) {
-		return <div>Loading data...</div>;
-	}
+  const latestData = liveData[liveData.length - 1];
 
-	const latestData = liveData[liveData.length - 1];
+  return (
+    <>
+      <Head>
+        <title>Live Data</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
-	return (
-		<>
-			<Head>
-				<title>Live Data</title>
-				<link
-					rel="icon"
-					href="/favicon.ico"
-				/>
-			</Head>
-
-			<Container
-				maxWidth="xl"
-				sx={{ mt: 4 }}
-			>
-				<Grid
-					container
-					spacing={4}
-				>
-					<Grid
-						item
-						xs={12}
-						md={6}
-					>
-						<Card>
-							<CardHeader title="Power" />
-							<CardContent>
-								<p>Voltage: {latestData.volt}</p>
-								<p>Current: {latestData.current}</p>
-								<p>Active Power: {latestData.ActivePower}</p>
-								<p>Power Factor: {latestData.PowerFactor}</p>
-							</CardContent>
-						</Card>
-					</Grid>
-					<Grid
-						item
-						xs={12}
-						md={6}
-					>
-						<Card>
-							<CardHeader title="Consumption" />
-							<CardContent>
-								<p>Energy Consumed: {latestData.EnergyConsumed}</p>
-								<p>Air: {latestData.air}</p>
-							</CardContent>
-						</Card>
-					</Grid>
-					<Grid
-						item
-						xs={12}
-						md={6}
-					>
-						<Card>
-							<CardHeader title="Caps" />
-							<CardContent>
-								<p>Feed Cap Carre: {latestData.FeedCapCarre}</p>
-								<p>Feed Cap Round: {latestData.FeedCapRound}</p>
-							</CardContent>
-						</Card>
-					</Grid>
-				</Grid>
-			</Container>
-		</>
-	);
+      <Container maxWidth="xl" sx={{ mt: 4 }}>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={6}>
+            <Card>
+              <CardHeader title="Power" />
+              <CardContent>
+                <p>Voltage: {latestData.volt}</p>
+                <p>Current: {latestData.current}</p>
+                <p>Active Power: {latestData.ActivePower}</p>
+                <p>Power Factor: {latestData.PowerFactor}</p>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card>
+              <CardHeader title="Consumption" />
+              <CardContent>
+                <p>Energy Consumed: {latestData.EnergyConsumed}</p>
+                <p>Air: {latestData.air}</p>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card>
+              <CardHeader title="Caps" />
+              <CardContent>
+                <p>Feed Cap Carre: {latestData.FeedCapCarre}</p>
+                <p>Feed Cap Round: {latestData.FeedCapRound}</p>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Container>
+    </>
+  );
 }
