@@ -1,5 +1,4 @@
 import { db } from "./db";
-import { NextApiRequest, NextApiResponse } from "next";
 
 const ws: WebSocket = new WebSocket("ws://127.0.0.1:1881/ws/historic");
 

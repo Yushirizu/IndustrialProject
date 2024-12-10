@@ -93,8 +93,8 @@ export default function Live() {
 						<Card>
 							<CardHeader title="Consumption" />
 							<CardContent>
-								<p>Energy Consumed: {latestData.EnergyConsumed}</p>
-								<p>Air: {latestData.air}</p>
+								<p>Energy Consumed: {liveData.EnergyConsumed}</p>
+								<p>Air: {liveData.air}</p>
 							</CardContent>
 						</Card>
 					</Grid>
@@ -106,8 +106,8 @@ export default function Live() {
 						<Card>
 							<CardHeader title="Caps" />
 							<CardContent>
-								<p>Feed Cap Carre: {latestData.FeedCapCarre}</p>
-								<p>Feed Cap Round: {latestData.FeedCapRound}</p>
+								<p>Feed Cap Carre: {liveData.FeedCapCarre}</p>
+								<p>Feed Cap Round: {liveData.FeedCapRound}</p>
 							</CardContent>
 						</Card>
 					</Grid>
