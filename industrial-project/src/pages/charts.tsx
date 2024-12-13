@@ -32,7 +32,7 @@ export default function Home() {
           setChartData(dataset);
           setbarChartData(dataset.slice(-5));
         });
-    }, 10000);
+    }, 1000);
   }, []);
 
   if (status === "unauthenticated" || session?.user.isAdmin === false) {
@@ -69,6 +69,16 @@ export default function Home() {
         <Container maxWidth="xl" sx={{ mt: 4 }}>
           <BarChart
             xAxis={[{ dataKey: "id", scaleType: "band" }]}
+            yAxis={[
+              {
+                colorMap: {
+                  type: "continuous",
+                  min: -10,
+                  max: 10,
+                  color: ["#811948", "#e22379"],
+                },
+              },
+            ]}
             series={[{ dataKey: "fcc" }, { dataKey: "fcr" }]}
             dataset={barchartData}
             width={1200}

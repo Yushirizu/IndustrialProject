@@ -15,10 +15,20 @@ const darkTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#c0392b",
+      main: "#e495b9",
+    },
+    secondary: {
+      main: "#811948",
     },
     background: {
-      default: " #8e44ad ",
+      default: "#1a0911",
+      paper: "#211118",
+    },
+    info: {
+      main: "#e22379",
+    },
+    text: {
+      primary: "#f5e7ed",
     },
   },
 });

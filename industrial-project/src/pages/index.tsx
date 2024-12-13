@@ -50,7 +50,7 @@ export default function Home() {
               {session ? (
                 <Button
                   variant="contained"
-                  color="primary"
+                  color="secondary"
                   onClick={() => signOut()}>
                   Déconnexion
                 </Button>
