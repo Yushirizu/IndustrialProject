@@ -7,6 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid2";
 import { useSession } from "next-auth/react";
 import { Typography } from "@mui/material";
+import { set } from "zod";
 
 export default function Live() {
   const { data: session, status } = useSession() as {
@@ -15,6 +16,7 @@ export default function Live() {
   };
   const [liveData, setLiveData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -35,13 +37,13 @@ export default function Live() {
 
       fetchData();
     } else if (session?.user.isAdmin === false) {
-      setError("Vous n'êtes pas autorisé à accéder à cette page.");
+      setIsAdmin(false);
     } else {
-      setError("Please sign in to view this page.");
+      setIsAdmin(true);
     }
   }, [status]);
 
-  if (status === "loading") {
+  if (status === "loading" && isAdmin) {
     return <div>Loading...</div>;
   }
 
@@ -49,7 +51,19 @@ export default function Live() {
     return <div>{error}</div>;
   }
 
-  if (!liveData) {
+  if (!isAdmin) {
+    return (
+      <Container maxWidth="xl">
+        <Card sx={{ mt: 4, p: 4 }}>
+          <Typography variant="h4" gutterBottom>
+            Please sign in to an admin account to access this page
+          </Typography>
+        </Card>
+      </Container>
+    );
+  }
+
+  if (!liveData && isAdmin) {
     return <div>Loading data...</div>;
   }
 
