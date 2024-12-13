@@ -21,7 +21,7 @@ export default function Home() {
       </Head>
 
       <Container maxWidth="xl" sx={{ mt: 4 }}>
-        <Card sx={{ p: 2, boxShadow: 3 }}>
+        <Card sx={{ p: 2, boxShadow: 3, m: 5, borderRadius: 5 }}>
           <CardHeader
             avatar={
               session?.user.image ? (
@@ -66,7 +66,7 @@ export default function Home() {
           </CardContent>
         </Card>
 
-        <Card sx={{ mt: 4, p: 4 }}>
+        <Card sx={{ mt: 4, p: 4, m: 5, borderRadius: 5 }}>
           <Typography variant="h4" gutterBottom>
             Projet Industriel
           </Typography>

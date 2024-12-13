@@ -30,7 +30,7 @@ export default function Home() {
   if (status === "unauthenticated" || session?.user.isAdmin === false) {
     return (
       <Container maxWidth="xl">
-        <Card sx={{ mt: 4, p: 4 }}>
+        <Card sx={{ mt: 4, p: 4, m: 5, borderRadius: 5 }}>
           <Typography variant="h4" gutterBottom>
             Please sign in to an admin account to access this page
           </Typography>
@@ -49,7 +49,7 @@ export default function Home() {
       <Container maxWidth="xl" sx={{ mt: 4 }}>
         <Grid container spacing={2}>
           <Grid size={12}>
-            <Card>
+            <Card sx={{ mt: 4, p: 4, m: 5, borderRadius: 5 }}>
               <CardHeader title="Relais" />
               <CardContent>
                 <DataGrid columns={tableLive} hideFooter rows={live} />

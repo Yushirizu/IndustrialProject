@@ -66,7 +66,7 @@ export default function Live() {
   if (!isAdmin) {
     return (
       <Container maxWidth="xl">
-        <Card sx={{ mt: 4, p: 4 }}>
+        <Card sx={{ mt: 4, p: 4, m: 5, borderRadius: 5 }}>
           <Typography variant="h4" gutterBottom>
             Please sign in to an admin account to access this page
           </Typography>
@@ -89,7 +89,7 @@ export default function Live() {
       <Container maxWidth="xl" sx={{ mt: 4 }}>
         <Grid container spacing={4}>
           <Grid size={6}>
-            <Card>
+            <Card sx={{ m: 5, borderRadius: 5 }}>
               <CardHeader title="Power" />
               <CardContent>
                 <p>Voltage: {liveData}</p>
@@ -100,7 +100,7 @@ export default function Live() {
             </Card>
           </Grid>
           <Grid size={6}>
-            <Card>
+            <Card sx={{ m: 5, borderRadius: 5 }}>
               <CardHeader title="Consumption" />
               <CardContent>
                 <p>Energy Consumed: {liveData.EnergyConsumed}</p>
@@ -109,7 +109,7 @@ export default function Live() {
             </Card>
           </Grid>
           <Grid size={6}>
-            <Card>
+            <Card sx={{ m: 5, borderRadius: 5 }}>
               <CardHeader title="Caps" />
               <CardContent>
                 <p>Feed Cap Carre: {liveData.FeedCapCarre}</p>

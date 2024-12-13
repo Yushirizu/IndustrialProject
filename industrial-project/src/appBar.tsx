@@ -28,7 +28,7 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, m: 2, borderRadius: 100 }}>
+    <Box sx={{ flexGrow: 1, m: 5, borderRadius: 100 }}>
       <AppBar
         position="static"
         sx={{ backgroundColor: "transparent", borderRadius: 100 }}>
