@@ -12,24 +12,24 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
 const darkTheme = createTheme({
-	palette: {
-		mode: "dark",
-	},
+  palette: {
+    mode: "dark",
+  },
 });
 
 const MyApp: AppType<{ session: Session | null }> = ({
-	Component,
-	pageProps: { session, ...pageProps },
+  Component,
+  pageProps: { session, ...pageProps },
 }) => {
-	return (
-		<SessionProvider session={session}>
-			<ThemeProvider theme={darkTheme}>
-				<CssBaseline />
-				<ButtonAppBar />
-				<Component {...pageProps} />
-			</ThemeProvider>
-		</SessionProvider>
-	);
+  return (
+    <SessionProvider session={session}>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <ButtonAppBar />
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </SessionProvider>
+  );
 };
 
 export default MyApp;
