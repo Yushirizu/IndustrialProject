@@ -1,9 +1,10 @@
-import { db } from "./db";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const ws: WebSocket = new WebSocket("ws://127.0.0.1:1881/ws/live");
+const ws: WebSocket = new WebSocket(
+	"wss://nodered.helhatechniquecharleroi.xyz/ws/tank"
+);
 
-export default async function getHistoric(
+export default async function getLive(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
