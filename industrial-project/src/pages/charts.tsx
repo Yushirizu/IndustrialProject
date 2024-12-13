@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import Container from "@mui/material/Container";
 import { BarChart, LineChart } from "@mui/x-charts";
-import { set } from "zod";
 import { useSession } from "next-auth/react";
 import { Card, Typography } from "@mui/material";
 
@@ -20,22 +19,20 @@ export default function Home() {
   >([]);
 
   useEffect(() => {
-    if (status === "authenticated") {
-      setInterval(() => {
-        fetch("/api/getCharts", { method: "POST" })
-          .then((response) => response.json())
-          .then((res) => {
-            const dataset = res.map((item: any) => ({
-              id: item.id,
-              ec: item.EnergyConsumed,
-              fcc: item.FeedCapCarre,
-              fcr: item.FeedCapRound,
-            }));
-            setChartData(dataset);
-            setbarChartData(dataset.slice(-5));
-          });
-      }, 10000);
-    }
+    setInterval(() => {
+      fetch("/api/getCharts", { method: "POST" })
+        .then((response) => response.json())
+        .then((res) => {
+          const dataset = res.map((item: any) => ({
+            id: item.id,
+            ec: item.EnergyConsumed,
+            fcc: item.FeedCapCarre,
+            fcr: item.FeedCapRound,
+          }));
+          setChartData(dataset);
+          setbarChartData(dataset.slice(-5));
+        });
+    }, 10000);
   }, []);
 
   if (status === "unauthenticated" || session?.user.isAdmin === false) {
