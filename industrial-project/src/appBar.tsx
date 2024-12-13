@@ -28,70 +28,76 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "transparent" }}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages
-              .filter((page) => session?.user.isAdmin || page.name === "Index")
-              .map((page) => (
-                <Button
-                  key={page.name}
-                  sx={{ my: 2, color: "white", display: "block" }}>
-                  <Link
-                    href={page.href}
-                    sx={{ textDecoration: "none", color: "white" }}>
-                    {page.name}
-                  </Link>
-                </Button>
-              ))}
-          </Box>
-          {
-            <div>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit">
-                {session?.user.image ? (
-                  <Avatar
-                    alt={session.user.name || ""}
-                    src={session.user.image || ""}
-                  />
-                ) : (
-                  <Avatar>{session?.user.name?.charAt(0)}</Avatar>
-                )}
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}>
-                {session?.user.isAdmin ? (
-                  <MenuItem onClick={handleClose}>Admin page</MenuItem>
-                ) : null}
-                {session ? (
-                  <MenuItem onClick={() => signOut()}>LOGOUT</MenuItem>
-                ) : (
-                  <MenuItem onClick={() => signIn()}>LOGIN</MenuItem>
-                )}
-              </Menu>
-            </div>
-          }
-        </Toolbar>
-      </Container>
-    </AppBar>
+    <Box sx={{ flexGrow: 1, m: 2, borderRadius: 100 }}>
+      <AppBar
+        position="static"
+        sx={{ backgroundColor: "transparent", borderRadius: 100 }}>
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              {pages
+                .filter(
+                  (page) => session?.user.isAdmin || page.name === "Index"
+                )
+                .map((page) => (
+                  <Button
+                    key={page.name}
+                    sx={{ my: 2, color: "white", display: "block" }}>
+                    <Link
+                      href={page.href}
+                      sx={{ textDecoration: "none", color: "white" }}>
+                      {page.name}
+                    </Link>
+                  </Button>
+                ))}
+            </Box>
+            {
+              <div>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit">
+                  {session?.user.image ? (
+                    <Avatar
+                      alt={session.user.name || ""}
+                      src={session.user.image || ""}
+                    />
+                  ) : (
+                    <Avatar>{session?.user.name?.charAt(0)}</Avatar>
+                  )}
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}>
+                  {session?.user.isAdmin ? (
+                    <MenuItem onClick={handleClose}>Admin page</MenuItem>
+                  ) : null}
+                  {session ? (
+                    <MenuItem onClick={() => signOut()}>LOGOUT</MenuItem>
+                  ) : (
+                    <MenuItem onClick={() => signIn()}>LOGIN</MenuItem>
+                  )}
+                </Menu>
+              </div>
+            }
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </Box>
   );
 }
 

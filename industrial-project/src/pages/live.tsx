@@ -7,7 +7,6 @@ import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid2";
 import { useSession } from "next-auth/react";
 import { Typography } from "@mui/material";
-import { set } from "zod";
 
 export default function Live() {
   const { data: session, status } = useSession() as {
