@@ -10,128 +10,116 @@ import { Typography } from "@mui/material";
 import { set } from "zod";
 
 export default function Live() {
-  const { data: session, status } = useSession() as {
-    data: { user: { isAdmin: boolean } } | null;
-    status: string;
-  };
-  const [liveData, setLiveData] = useState<any>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+	const { data: session, status } = useSession() as {
+		data: { user: { isAdmin: boolean } } | null;
+		status: string;
+	};
+	const [liveData, setLiveData] = useState<any>([]);
+	const [error, setError] = useState<string | null>(null);
+	const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
-  useEffect(() => {
-    let ws: WebSocket;
+	useEffect(() => {
+		let ws: WebSocket;
 
-    if (status === "authenticated") {
-      try {
-        // Initialiser le WebSocket
-        ws = new WebSocket("wss://nodered.helhatechniquecharleroi.xyz/ws/tank");
+		if (status === "authenticated") {
+			try {
+				ws = new WebSocket("wss://nodered.helhatechniquecharleroi.xyz/ws/tank");
 
-        // Écoute lorsque le WebSocket est ouvert
-        ws.addEventListener("open", () => {
-          console.log("WebSocket connection established");
-        });
+				ws.addEventListener("open", () => {
+					console.log("WebSocket connection established");
+				});
 
-        // Écoute les messages entrants
-        ws.addEventListener("message", (msg) => {
-          try {
-            const data = JSON.parse(msg.data); // Parser les données JSON
-            setLiveData([data]); // Ajouter les données au state
-          } catch (error) {
-            console.error("Invalid JSON data received:", msg.data);
-          }
-        });
+				ws.addEventListener("message", (msg) => {
+					try {
+						const data = JSON.parse(msg.data);
+						setLiveData([data]);
+					} catch (error) {
+						console.error("Invalid JSON data received:", msg.data);
+					}
+				});
 
-        // Écoute les erreurs de connexion
-        ws.addEventListener("error", (err) => {
-          console.error("WebSocket error:", err);
-          setError(err.toString());
-        });
+				ws.addEventListener("error", (err) => {
+					console.error("WebSocket error:", err);
+					setError(err.toString());
+				});
 
-        // Écoute lorsque le WebSocket est fermé
-        ws.addEventListener("close", () => {
-          console.log("WebSocket connection closed");
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    } else if (session?.user.isAdmin === false) {
-      setIsAdmin(false);
-    } else {
-      setIsAdmin(true);
-    }
+				ws.addEventListener("close", () => {
+					console.log("WebSocket connection closed");
+				});
+			} catch (err) {
+				console.log(err);
+			}
+		} else if (session?.user.isAdmin === false) {
+			setIsAdmin(false);
+		} else {
+			setIsAdmin(true);
+		}
+	}, [status]);
 
-    // Nettoyage du WebSocket à la fermeture ou modification des dépendances
-    return () => {
-      if (ws) {
-        ws.close();
-      }
-    };
-  }, [status]);
+	if (status === "loading" && isAdmin) {
+		return <div>Loading...</div>;
+	}
 
-  if (status === "loading" && isAdmin) {
-    return <div>Loading...</div>;
-  }
+	if (error) {
+		return <div>{error}</div>;
+	}
 
-  if (error) {
-    return <div>{error}</div>;
-  }
+	if (!isAdmin) {
+		return (
+			<Container maxWidth="xl">
+				<Card sx={{ mt: 4, p: 4 }}>
+					<Typography variant="h4" gutterBottom>
+						Please sign in to an admin account to access this page
+					</Typography>
+				</Card>
+			</Container>
+		);
+	}
 
-  if (!isAdmin) {
-    return (
-      <Container maxWidth="xl">
-        <Card sx={{ mt: 4, p: 4 }}>
-          <Typography variant="h4" gutterBottom>
-            Please sign in to an admin account to access this page
-          </Typography>
-        </Card>
-      </Container>
-    );
-  }
+	if (!liveData && isAdmin) {
+		return <div>Loading data...</div>;
+	}
 
-  if (!liveData && isAdmin) {
-    return <div>Loading data...</div>;
-  }
+	return (
+		<>
+			<Head>
+				<title>Live Data</title>
+				<link rel="icon" href="/favicon.ico" />
+			</Head>
 
-  return (
-    <>
-      <Head>
-        <title>Live Data</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <Container maxWidth="xl" sx={{ mt: 4 }}>
-        <Grid container spacing={4}>
-          <Grid size={6}>
-            <Card>
-              <CardHeader title="Power" />
-              <CardContent>
-                <p>Voltage: {liveData}</p>
-                <p>Current: {liveData.current}</p>
-                <p>Active Power: {liveData.ActivePower}</p>
-                <p>Power Factor: {liveData.PowerFactor}</p>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid size={6}>
-            <Card>
-              <CardHeader title="Consumption" />
-              <CardContent>
-                <p>Energy Consumed: {liveData.EnergyConsumed}</p>
-                <p>Air: {liveData.air}</p>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid size={6}>
-            <Card>
-              <CardHeader title="Caps" />
-              <CardContent>
-                <p>Feed Cap Carre: {liveData.FeedCapCarre}</p>
-                <p>Feed Cap Round: {liveData.FeedCapRound}</p>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
-      </Container>
-    </>
-  );
+			<Container maxWidth="xl" sx={{ mt: 4 }}>
+				<Grid container spacing={4}>
+					<Grid size={6}>
+						<Card>
+							<CardHeader title="Power" />
+							<CardContent>
+								<p>Voltage: {liveData}</p>
+								<p>Current: {liveData.current}</p>
+								<p>Active Power: {liveData.ActivePower}</p>
+								<p>Power Factor: {liveData.PowerFactor}</p>
+							</CardContent>
+						</Card>
+					</Grid>
+					<Grid size={6}>
+						<Card>
+							<CardHeader title="Consumption" />
+							<CardContent>
+								<p>Energy Consumed: {liveData.EnergyConsumed}</p>
+								<p>Air: {liveData.air}</p>
+							</CardContent>
+						</Card>
+					</Grid>
+					<Grid size={6}>
+						<Card>
+							<CardHeader title="Caps" />
+							<CardContent>
+								<p>Feed Cap Carre: {liveData.FeedCapCarre}</p>
+								<p>Feed Cap Round: {liveData.FeedCapRound}</p>
+							</CardContent>
+						</Card>
+					</Grid>
+				</Grid>
+			</Container>
+		</>
+	);
 }
