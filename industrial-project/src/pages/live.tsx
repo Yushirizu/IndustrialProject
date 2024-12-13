@@ -15,7 +15,6 @@ export default function Live() {
   };
   const [liveData, setLiveData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
-  const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -36,9 +35,9 @@ export default function Live() {
 
       fetchData();
     } else if (session?.user.isAdmin === false) {
-      isAdmin === false;
+      setError("Vous n'êtes pas autorisé à accéder à cette page.");
     } else {
-      isAdmin === true;
+      setError("Please sign in to view this page.");
     }
   }, [status]);
 
@@ -47,25 +46,7 @@ export default function Live() {
   }
 
   if (error) {
-    return (
-      <Container maxWidth="xl">
-        <Card sx={{ mt: 4, p: 4 }}>
-          <Typography variant="h4" gutterBottom>
-            You are not connected to the server.
-          </Typography>
-        </Card>
-      </Container>
-    );
-  } else if (!isAdmin) {
-    return (
-      <Container maxWidth="xl">
-        <Card sx={{ mt: 4, p: 4 }}>
-          <Typography variant="h4" gutterBottom>
-            Please sign in to an admin account to access this page.
-          </Typography>
-        </Card>
-      </Container>
-    );
+    return <div>{error}</div>;
   }
 
   if (!liveData) {
@@ -81,7 +62,7 @@ export default function Live() {
 
       <Container maxWidth="xl" sx={{ mt: 4 }}>
         <Grid container spacing={4}>
-          <Grid size={12}>
+          <Grid item xs={12} md={6}>
             <Card>
               <CardHeader title="Power" />
               <CardContent>
@@ -92,7 +73,7 @@ export default function Live() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid size={12}>
+          <Grid item xs={12} md={6}>
             <Card>
               <CardHeader title="Consumption" />
               <CardContent>
@@ -101,7 +82,7 @@ export default function Live() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid size={12}>
+          <Grid item xs={12} md={6}>
             <Card>
               <CardHeader title="Caps" />
               <CardContent>
