@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardContent,
   Typography,
+  Box,
 } from "@mui/material";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
@@ -47,6 +48,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container maxWidth="xl" sx={{ mt: 4 }}>
+        <Box mb={4} ml={5}>
+          <Typography variant="h3" gutterBottom>
+            Historic Data
+          </Typography>
+          <Typography variant="body1">
+            This page displays historic data from the industrial system.
+          </Typography>
+        </Box>
         <Grid container spacing={2}>
           <Grid size={12}>
             <Card sx={{ mt: 4, p: 4, m: 5, borderRadius: 5 }}>

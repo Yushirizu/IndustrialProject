@@ -6,6 +6,7 @@ import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid2";
 import { useSession } from "next-auth/react";
+import { Box, Typography } from "@mui/material";
 
 export default function Live() {
   const { data: session, status } = useSession() as {
@@ -22,7 +23,7 @@ export default function Live() {
       let ws: WebSocket;
 
       const connectWebSocket = () => {
-        ws = new WebSocket("ws://192.168.200.248:1881/ws/live");
+        ws = new WebSocket("ws://130.130.130.245:1880/ws/live");
 
         ws.addEventListener("open", () => {
           console.log("WebSocket connection established");
@@ -77,7 +78,7 @@ export default function Live() {
 
         ws.addEventListener("error", (err) => {
           console.error("WebSocket error:", err);
-          setError(err.toString());
+          setError("Websocket error: " + err.toString());
         });
 
         ws.addEventListener("close", () => {
@@ -112,7 +113,17 @@ export default function Live() {
   }
 
   if (status === "unauthenticated") {
-    return <div>Please sign in to view this page.</div>;
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}>
+        Please sign in to view this page.
+      </div>
+    );
   }
 
   if (error) {
@@ -141,33 +152,59 @@ export default function Live() {
       </Head>
 
       <Container maxWidth="xl" sx={{ mt: 4 }}>
+        <Box mb={4} ml={1}>
+          <Typography variant="h3" gutterBottom>
+            Live Data Monitoring
+          </Typography>
+          <Typography variant="body1">
+            This page displays real-time data from the industrial system.
+          </Typography>
+        </Box>
         <Grid container spacing={4}>
           <Grid size={6}>
-            <Card sx={{ p: 2, boxShadow: 3, borderRadius: 5 }}>
+            <Card
+              sx={{
+                p: 2,
+                boxShadow: 3,
+                borderRadius: 5,
+                backgroundColor: "rgba(129, 25, 72, 0.5)",
+              }}>
               <CardHeader title="Power" />
               <CardContent>
-                <p>Voltage: {liveData.volt}</p>
-                <p>Current: {liveData.current}</p>
-                <p>Active Power: {liveData.ActivePower}</p>
-                <p>Power Factor: {liveData.PowerFactor}</p>
+                <p>Voltage: {liveData?.volt ?? "N/A"}</p>
+                <p>Current: {liveData?.current ?? "N/A"}</p>
+                <p>Active Power: {liveData?.ActivePower ?? "N/A"}</p>
+                <p>Power Factor: {liveData?.PowerFactor ?? "N/A"}</p>
               </CardContent>
             </Card>
           </Grid>
           <Grid size={6}>
-            <Card sx={{ p: 2, boxShadow: 3, borderRadius: 5 }}>
+            <Card
+              sx={{
+                p: 2,
+                boxShadow: 3,
+                borderRadius: 5,
+                backgroundColor: "rgba(129, 25, 72, 0.5)",
+              }}>
               <CardHeader title="Consumption" />
               <CardContent>
-                <p>Energy Consumed: {liveData.EnergyConsumed}</p>
-                <p>Air: {liveData.air}</p>
+                <p>Energy Consumed: {liveData?.EnergyConsumed ?? "N/A"}</p>
+                <p>Air: {liveData?.air ?? "N/A"}</p>
               </CardContent>
             </Card>
           </Grid>
           <Grid size={6}>
-            <Card sx={{ p: 2, boxShadow: 3, borderRadius: 5 }}>
+            <Card
+              sx={{
+                p: 2,
+                boxShadow: 3,
+                borderRadius: 5,
+                backgroundColor: "rgba(129, 25, 72, 0.5)",
+              }}>
               <CardHeader title="Caps" />
               <CardContent>
-                <p>Feed Cap Square: {liveData.FeedCapCarre}</p>
-                <p>Feed Cap Round: {liveData.FeedCapRound}</p>
+                <p>Feed Cap Square: {liveData?.FeedCapCarre ?? "N/A"}</p>
+                <p>Feed Cap Round: {liveData?.FeedCapRound ?? "N/A"}</p>
               </CardContent>
             </Card>
           </Grid>
