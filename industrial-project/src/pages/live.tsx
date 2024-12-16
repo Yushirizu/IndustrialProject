@@ -4,9 +4,8 @@ import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
-import Grid from "@mui/material/Grid2";
+import Grid from "@mui/material/Grid";
 import { useSession } from "next-auth/react";
-import { Typography } from "@mui/material";
 
 export default function Live() {
 	const { data: session, status } = useSession() as {
@@ -16,11 +15,14 @@ export default function Live() {
 	const [liveData, setLiveData] = useState<any>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [isAdmin, setIsAdmin] = useState<boolean>(false);
+	let receivedData: { [key: string]: number } = {};
 
 	useEffect(() => {
 		if (status === "authenticated") {
-			try {
-				let ws: WebSocket = new WebSocket("ws://127.0.0.1:1881/ws/live");
+			let ws: WebSocket;
+
+			const connectWebSocket = () => {
+				ws = new WebSocket("ws://127.0.0.1:1881/ws/live");
 
 				ws.addEventListener("open", () => {
 					console.log("WebSocket connection established");
@@ -29,8 +31,46 @@ export default function Live() {
 				ws.addEventListener("message", (msg) => {
 					try {
 						const data = JSON.parse(msg.data);
-						console.log(data);
-						setLiveData(data);
+						console.log(data.payload);
+						receivedData[data.topic] = data.payload;
+						const requiredKeys = [
+							"volt",
+							"air",
+							"current",
+							"ActivePower",
+							"PowerFactor",
+							"EC",
+							"FCC",
+							"FCR",
+						];
+
+						if (requiredKeys.every((key) => key in receivedData)) {
+							const {
+								volt,
+								air,
+								current,
+								ActivePower,
+								PowerFactor,
+								EC: EnergyConsumed,
+								FCC: FeedCapCarre,
+								FCR: FeedCapRound,
+							} = receivedData;
+
+							// Réinitialisez le tableau pour les prochaines données
+							receivedData = {};
+
+							// Mettez à jour l'état avec les nouvelles données
+							setLiveData({
+								volt,
+								air,
+								current,
+								ActivePower,
+								PowerFactor,
+								EnergyConsumed,
+								FeedCapCarre,
+								FeedCapRound,
+							});
+						}
 					} catch (error) {
 						console.error("Invalid JSON data received:", msg.data);
 					}
@@ -43,38 +83,34 @@ export default function Live() {
 
 				ws.addEventListener("close", () => {
 					console.log("WebSocket connection closed");
+					// Reconnecter après une fermeture
+					setTimeout(connectWebSocket, 1000);
 				});
-			} catch (err) {
-				console.log(err);
-			}
-		} else if (session?.user.isAdmin === false) {
-			setIsAdmin(false);
-		} else {
-			setIsAdmin(true);
+			};
+
+			connectWebSocket();
+
+			return () => {
+				if (ws) {
+					ws.close();
+				}
+			};
 		}
 	}, [status]);
 
-	if (status === "loading" && isAdmin) {
+	if (status === "loading") {
 		return <div>Loading...</div>;
+	}
+
+	if (status === "unauthenticated") {
+		return <div>Please sign in to view this page.</div>;
 	}
 
 	if (error) {
 		return <div>{error}</div>;
 	}
 
-	if (!isAdmin) {
-		return (
-			<Container maxWidth="xl">
-				<Card sx={{ mt: 4, p: 4, m: 5, borderRadius: 5 }}>
-					<Typography variant="h4" gutterBottom>
-						Please sign in to an admin account to access this page
-					</Typography>
-				</Card>
-			</Container>
-		);
-	}
-
-	if (!liveData && isAdmin) {
+	if (!liveData) {
 		return <div>Loading data...</div>;
 	}
 
@@ -87,19 +123,19 @@ export default function Live() {
 
 			<Container maxWidth="xl" sx={{ mt: 4 }}>
 				<Grid container spacing={4}>
-					<Grid size={6}>
-						<Card sx={{ m: 5, borderRadius: 5 }}>
+					<Grid item xs={12} md={6}>
+						<Card>
 							<CardHeader title="Power" />
 							<CardContent>
-								<p>Voltage: {liveData.voltage}</p>
+								<p>Voltage: {liveData.volt}</p>
 								<p>Current: {liveData.current}</p>
 								<p>Active Power: {liveData.ActivePower}</p>
 								<p>Power Factor: {liveData.PowerFactor}</p>
 							</CardContent>
 						</Card>
 					</Grid>
-					<Grid size={6}>
-						<Card sx={{ m: 5, borderRadius: 5 }}>
+					<Grid item xs={12} md={6}>
+						<Card>
 							<CardHeader title="Consumption" />
 							<CardContent>
 								<p>Energy Consumed: {liveData.EnergyConsumed}</p>
@@ -107,8 +143,8 @@ export default function Live() {
 							</CardContent>
 						</Card>
 					</Grid>
-					<Grid size={6}>
-						<Card sx={{ m: 5, borderRadius: 5 }}>
+					<Grid item xs={12} md={6}>
+						<Card>
 							<CardHeader title="Caps" />
 							<CardContent>
 								<p>Feed Cap Carre: {liveData.FeedCapCarre}</p>
