@@ -4,7 +4,7 @@ import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
-import Grid from "@mui/material/Grid";
+import Grid from "@mui/material/Grid2";
 import { useSession } from "next-auth/react";
 
 export default function Live() {
@@ -31,7 +31,6 @@ export default function Live() {
 				ws.addEventListener("message", (msg) => {
 					try {
 						const data = JSON.parse(msg.data);
-						console.log(data.payload);
 						receivedData[data.topic] = data.payload;
 						const requiredKeys = [
 							"volt",
@@ -123,7 +122,7 @@ export default function Live() {
 
 			<Container maxWidth="xl" sx={{ mt: 4 }}>
 				<Grid container spacing={4}>
-					<Grid item xs={12} md={6}>
+					<Grid size={6}>
 						<Card>
 							<CardHeader title="Power" />
 							<CardContent>
@@ -134,7 +133,7 @@ export default function Live() {
 							</CardContent>
 						</Card>
 					</Grid>
-					<Grid item xs={12} md={6}>
+					<Grid size={6}>
 						<Card>
 							<CardHeader title="Consumption" />
 							<CardContent>
@@ -143,7 +142,7 @@ export default function Live() {
 							</CardContent>
 						</Card>
 					</Grid>
-					<Grid item xs={12} md={6}>
+					<Grid size={6}>
 						<Card>
 							<CardHeader title="Caps" />
 							<CardContent>
