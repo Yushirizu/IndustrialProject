@@ -1,6 +1,6 @@
 import { db } from "./db";
 
-const ws: WebSocket = new WebSocket("ws://127.0.0.1:1881/ws/historic");
+const ws: WebSocket = new WebSocket("ws://130.130.130.245:1880/ws/historic");
 
 let receivedData: { [key: string]: number } = {};
 

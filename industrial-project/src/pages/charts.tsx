@@ -5,6 +5,7 @@ import Container from "@mui/material/Container";
 import { BarChart, LineChart } from "@mui/x-charts";
 import { useSession } from "next-auth/react";
 import { Box, Card, CardContent, CardHeader, Typography } from "@mui/material";
+import { axisClasses } from "@mui/x-charts/ChartsAxis";
 
 export default function Home() {
   const { data: session, status } = useSession() as {
@@ -71,6 +72,20 @@ export default function Home() {
             <Box display="flex" justifyContent="center">
               <LineChart
                 xAxis={[{ dataKey: "id" }]}
+                yAxis={[
+                  {
+                    colorMap: {
+                      type: "continuous",
+                      min: -10,
+                      max: 10,
+                      color: ["#811948", "#e22379"],
+                    },
+                    label: "EC",
+                    labelStyle: {
+                      transform: "translateX(-50px)",
+                    },
+                  },
+                ]}
                 series={[{ dataKey: "ec" }]}
                 dataset={chartData}
                 width={1200}

@@ -39,3 +39,6 @@ yarn-error.log*
 
 # idea files
 .idea
+
+#pages
+/src/pages/testfroiran.tsx
