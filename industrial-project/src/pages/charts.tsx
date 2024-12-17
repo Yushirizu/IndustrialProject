@@ -7,17 +7,6 @@ import { useSession } from "next-auth/react";
 import { Box, Card, CardContent, CardHeader, Typography } from "@mui/material";
 import { axisClasses } from "@mui/x-charts/ChartsAxis";
 
-const otherSetting = {
-	height: 300,
-	yAxis: [{ label: "Value" }],
-	grid: { horizontal: true },
-	sx: {
-		[`& .${axisClasses.left} .${axisClasses.label}`]: {
-			transform: "translateX(-10px)",
-		},
-	},
-};
-
 export default function Home() {
 	const { data: session, status } = useSession() as {
 		data: { user: { isAdmin: boolean } } | null;
@@ -134,7 +123,24 @@ export default function Home() {
 										valueFormatter: (value) => `${value}`,
 									},
 								]}
-								{...otherSetting}
+								height={300}
+								yAxis={[
+									{
+										colorMap: {
+											type: "continuous",
+											min: -10,
+											max: 10,
+											color: ["#811948", "#e22379"],
+										},
+										label: "Number of caps",
+									},
+								]}
+								grid={{ horizontal: true }}
+								sx={{
+									[`& .${axisClasses.left} .${axisClasses.label}`]: {
+										transform: "translateX(-10px)",
+									},
+								}}
 							/>
 						</Box>
 					</CardContent>
