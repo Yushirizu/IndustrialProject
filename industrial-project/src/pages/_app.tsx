@@ -5,11 +5,26 @@ import { type AppType } from "next/app";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import ButtonAppBar from "../appBar";
+import { Box, Paper, Typography } from "@mui/material";
+
+import styled, { keyframes } from "styled-components";
 
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+
+// Animation RGB pour paper
+const rgbAnimation = keyframes`
+  0% { background-color: rgb(255, 0, 0); }  // Couleur de départ
+  50% { background-color: rgb(0, 255, 98); } // Transition vers une autre couleur
+  100% { background-color: rgb(76, 0, 255); } // Retour à la couleur initiale
+`;
+
+// Styled Paper avec l'animation RGB
+const AnimatedPaper = styled(Paper)`
+  animation: ${rgbAnimation} 5s infinite alternate;
+`;
 
 const darkTheme = createTheme({
   palette: {
@@ -22,7 +37,7 @@ const darkTheme = createTheme({
     },
     background: {
       default: "#1a0911",
-      paper: "#211118",
+      paper: "#211118", // Couleur par défaut (fallback)
     },
     info: {
       main: "#e22379",

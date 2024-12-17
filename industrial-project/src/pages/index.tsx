@@ -24,9 +24,44 @@ export default function Home() {
 
       <Container maxWidth="xl" sx={{ mt: 4 }}>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Typography variant="h1">Projix 3000</Typography>
+          <Typography
+            variant="h1"
+            sx={{
+              fontFamily: "Comic Sans MS",
+              fontWeight: "bold",
+              animation: "rgbShadow 3s infinite",
+              textDecoration: "underline",
+            }}>
+            Projix Yape
+          </Typography>
+          <style jsx global>{`
+            @keyframes rgbShadow {
+              0% {
+                text-shadow: 0 4px 80px rgba(255, 0, 0, 1);
+                text-color: rgba(255, 0, 0, 1);
+              }
+              33% {
+                text-shadow: 0 4px 80px rgba(0, 255, 0, 1);
+                text-color: rgba(0, 255, 0, 1);
+              }
+              66% {
+                text-shadow: 0 4px 80px rgba(0, 0, 255, 1);
+                text-color: rgba(0, 0, 255, 1);
+              }
+              100% {
+                text-shadow: 0 4px 80px rgba(255, 0, 0, 1);
+                text-color: rgba(255, 0, 0, 1);
+              }
+            }
+          `}</style>
         </Box>
-        <Card sx={{ p: 2, boxShadow: 3, m: 5, borderRadius: 5 }}>
+        <Card
+          sx={{
+            p: 2,
+            boxShadow: 3,
+            m: 5,
+            borderRadius: 5,
+          }}>
           <CardHeader
             avatar={
               session?.user.image ? (

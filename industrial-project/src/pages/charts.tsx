@@ -39,7 +39,7 @@ export default function Home() {
   if (status === "unauthenticated" || session?.user.isAdmin === false) {
     return (
       <Container maxWidth="xl">
-        <Card sx={{ mt: 4, p: 4 }}>
+        <Card sx={{ mt: 4, p: 4, borderRadius: 5 }}>
           <Typography variant="h4" gutterBottom>
             Please sign in to an admin account to access this page
           </Typography>

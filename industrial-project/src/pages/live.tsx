@@ -20,6 +20,11 @@ export default function Live() {
 
   useEffect(() => {
     if (status === "authenticated") {
+      if (session?.user.isAdmin) {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      }
       let ws: WebSocket;
 
       const connectWebSocket = () => {
@@ -112,17 +117,15 @@ export default function Live() {
     );
   }
 
-  if (status === "unauthenticated") {
+  if (status === "unauthenticated" || !isAdmin) {
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}>
-        Please sign in to view this page.
-      </div>
+      <Container maxWidth="xl">
+        <Card sx={{ mt: 4, p: 4, m: 5, borderRadius: 5 }}>
+          <Typography variant="h4" gutterBottom>
+            Please sign in to an admin account to access this page
+          </Typography>
+        </Card>
+      </Container>
     );
   }
 
