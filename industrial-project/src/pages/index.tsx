@@ -27,7 +27,7 @@ export default function Home() {
           <Typography
             variant="h1"
             sx={{
-              fontFamily: "Comic Sans MS",
+              fontFamily: "Times New Roman",
               fontWeight: "bold",
               animation: "rgbShadow 3s infinite",
               textDecoration: "underline",
@@ -38,19 +38,19 @@ export default function Home() {
             @keyframes rgbShadow {
               0% {
                 text-shadow: 0 4px 80px rgba(255, 0, 0, 1);
-                text-color: rgba(255, 0, 0, 1);
+                color: rgba(255, 0, 0, 1);
               }
               33% {
                 text-shadow: 0 4px 80px rgba(0, 255, 0, 1);
-                text-color: rgba(0, 255, 0, 1);
+                color: rgba(0, 255, 0, 1);
               }
               66% {
                 text-shadow: 0 4px 80px rgba(0, 0, 255, 1);
-                text-color: rgba(0, 0, 255, 1);
+                color: rgba(0, 0, 255, 1);
               }
               100% {
                 text-shadow: 0 4px 80px rgba(255, 0, 0, 1);
-                text-color: rgba(255, 0, 0, 1);
+                color: rgba(255, 0, 0, 1);
               }
             }
           `}</style>
