@@ -11,13 +11,31 @@ export default function Home() {
     const {data: session, status} = useSession() as {
         data: { user: { isAdmin: boolean } } | null; status: string;
     };
-    const [live, setLive] = useState<Array<any>>();
+    type HistoricData = {
+        id: number;
+        timestamp: string;
+        volt: number;
+        air: number;
+        current: number;
+        EnergyConsumed: number;
+        FeedCapCarre: number;
+        FeedCapRound: number;
+    };
+
+    const [historicData, setHistoricData] = useState<Array<HistoricData>>([]);
     useEffect(() => {
-        fetch("/api/getHistoric", {method: "POST"})
-            .then((response) => response.json())
-            .then((res) => {
-                setLive(res);
-            });
+        const fetchData = async () => {
+            try {
+                const response = await fetch("/api/getHistoric", {method: "POST"});
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                const res: HistoricData[] = await response.json();
+                setHistoricData(res);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        void fetchData();
     }, []);
 
     if (status === "unauthenticated" || session?.user.isAdmin === false) {
@@ -50,7 +68,7 @@ export default function Home() {
                     <Card sx={{mt: 4, p: 4, m: 5, borderRadius: 5}}>
                         <CardHeader title="Relais"/>
                         <CardContent>
-                            <DataGrid columns={tableLive} hideFooter rows={live}/>
+                            <DataGrid columns={tableLive} hideFooter rows={historicData}/>
                         </CardContent>
                     </Card>
                 </Grid>

@@ -13,14 +13,20 @@ export default function Home() {
     };
     const [chartData, setChartData] = useState<Array<{ id: number; ec: number }>>([]);
     const [barchartData, setbarChartData] = useState<Array<{ id: number; ec: number }>>([]);
-
+    type DatasetItem = {
+        timestamp: string;
+        EnergyConsumed: number;
+        FeedCapCarre: number;
+        FeedCapRound: number;
+    };
     useEffect(() => {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         setInterval(async () => {
             await fetch("/api/getCharts", {method: "POST"})
                 .then((response) => response.json())
-                .then((res) => {
-                    const dataset = res.map((item: any) => ({
+                .then((res: DatasetItem[]) => {
+                    const dataset = res.map((item, index) => ({
+                        id: index,
                         timestamp: item.timestamp,
                         ec: item.EnergyConsumed,
                         fcc: item.FeedCapCarre,
@@ -92,7 +98,7 @@ export default function Home() {
                             xAxis={[{
                                 scaleType: "band",
                                 dataKey: "timestamp",
-                                valueFormatter: (timestamp, context) => context.location === "tick" ? new Date(timestamp).toLocaleTimeString() : new Date(timestamp).toLocaleTimeString(),
+                                valueFormatter: (timestamp: string, context) => context.location === "tick" ? new Date(timestamp).toLocaleTimeString() : new Date(timestamp).toLocaleTimeString(),
                             },]}
                             series={[{
                                 dataKey: "fcc",
