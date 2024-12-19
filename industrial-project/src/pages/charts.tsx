@@ -6,6 +6,7 @@ import { BarChart, LineChart } from "@mui/x-charts";
 import { useSession } from "next-auth/react";
 import { Box, Card, CardContent, CardHeader, Typography } from "@mui/material";
 import { axisClasses } from "@mui/x-charts/ChartsAxis";
+import { time, timeStamp } from "console";
 
 export default function Home() {
   const { data: session, status } = useSession() as {
@@ -25,7 +26,7 @@ export default function Home() {
         .then((response) => response.json())
         .then((res) => {
           const dataset = res.map((item: any) => ({
-            id: item.id,
+            timestamp: item.timestamp,
             ec: item.EnergyConsumed,
             fcc: item.FeedCapCarre,
             fcr: item.FeedCapRound,
@@ -71,7 +72,7 @@ export default function Home() {
           <CardContent>
             <Box display="flex" justifyContent="center">
               <LineChart
-                xAxis={[{ dataKey: "id" }]}
+                xAxis={[{ dataKey: "timestamp" }]}
                 yAxis={[
                   {
                     colorMap: {
@@ -106,9 +107,11 @@ export default function Home() {
                 xAxis={[
                   {
                     scaleType: "band",
-                    dataKey: "id",
-                    valueFormatter: (id, context) =>
-                      context.location === "tick" ? `ID: ${id}` : `ID: ${id}`,
+                    dataKey: "timestamp",
+                    valueFormatter: (timestamp, context) =>
+                      context.location === "tick"
+                        ? new Date(timestamp).toLocaleTimeString()
+                        : new Date(timestamp).toLocaleTimeString(),
                   },
                 ]}
                 series={[

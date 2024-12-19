@@ -6,7 +6,7 @@ export default async function getHistoric(
 	res: NextApiResponse
 ) {
 	if (req.method === "POST") {
-		const historicData = await db.live.findMany();
+		const historicData = await db.historicalData.findMany();
 		res.status(200).json(historicData);
 	} else {
 		res.status(404).send("Not Found");

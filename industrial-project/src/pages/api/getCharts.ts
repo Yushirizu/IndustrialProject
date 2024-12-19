@@ -1,5 +1,6 @@
 import { db } from "~/server/db";
 import { NextApiRequest, NextApiResponse } from "next";
+import { time } from "console";
 
 export default async function getCharts(
   req: NextApiRequest,
@@ -13,6 +14,7 @@ export default async function getCharts(
           FeedCapCarre: true,
           FeedCapRound: true,
           id: true,
+		  timestamp: true,
         },
       });
       res.status(200).json(historicData);
