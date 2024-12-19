@@ -37,7 +37,7 @@ const darkTheme = createTheme({
     },
     background: {
       default: "#1a0911",
-      paper: "rgba(12, 17, 23, 0.5)", // Couleur par défaut (fallback)
+      paper: "rgba(12, 17, 23, 0.5)",
     },
     info: {
       main: "#e22379",
@@ -49,8 +49,24 @@ const darkTheme = createTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
+        html: {
+          height: "100%",
+          margin: 0,
+          padding: 0,
+        },
         body: {
-          background: "radial-gradient(circle, rgb(2, 27, 52), rgb(5, 7, 10))",
+          height: "100%",
+          minHeight: "100%",
+          margin: 0,
+          padding: 0,
+          background:
+            "radial-gradient(circle at top, rgb(2, 27, 52), rgb(5, 7, 10))",
+          backgroundRepeat: "no-repeat",
+          backgroundAttachment: "fixed", // Fixe le gradient pour éviter les décalages
+          overflowX: "hidden", // Évite le défilement horizontal
+        },
+        "#__next": {
+          height: "100%",
         },
       },
     },
