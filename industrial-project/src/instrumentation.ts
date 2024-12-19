@@ -1,6 +1,6 @@
-import { initWS } from "./server/fetcher";
+import {initWS} from "./server/fetcher";
 
 export function register() {
-	console.log("Démarrage WS");
-	initWS();
+    console.log("Démarrage WS");
+    initWS();
 }
