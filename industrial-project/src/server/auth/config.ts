@@ -1,8 +1,9 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import { type DefaultSession, type NextAuthConfig } from "next-auth";
+import {PrismaAdapter} from "@auth/prisma-adapter";
+import {type DefaultSession, type NextAuthConfig} from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
+import {Adapter} from "next-auth/adapters";
 
-import { db } from "~/server/db";
+import {db} from "~/server/db";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -11,18 +12,16 @@ import { db } from "~/server/db";
  * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
  */
 declare module "next-auth" {
-  interface Session extends DefaultSession {
-    user: {
-      id: string;
-      isAdmin: boolean;
-      // ...other properties
-      // role: UserRole;
-    } & DefaultSession["user"];
-  }
+    interface Session extends DefaultSession {
+        user: {
+            id: string; isAdmin: boolean; // ...other properties
+            // role: UserRole;
+        } & DefaultSession["user"];
+    }
 
-   interface User {
-     isAdmin: boolean;
-  }
+    interface User {
+        isAdmin: boolean;
+    }
 }
 
 /**
@@ -31,9 +30,7 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authConfig = {
-  providers: [
-    DiscordProvider,
-    /**
+    providers: [DiscordProvider, /**
      * ...add more providers here.
      *
      * Most other providers require a bit more work than the Discord provider. For example, the
@@ -41,17 +38,11 @@ export const authConfig = {
      * model. Refer to the NextAuth.js docs for the provider you want to use. Example:
      *
      * @see https://next-auth.js.org/providers/github
-     */
-  ],
-  adapter: PrismaAdapter(db) as any,
-  callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-        isAdmin: user.isAdmin,
-      },
-    }),
-  },
+     */], adapter: PrismaAdapter(db) as unknown as Adapter, callbacks: {
+        session: ({session, user}) => ({
+            ...session, user: {
+                ...session.user, id: user.id, isAdmin: user.isAdmin,
+            },
+        }),
+    },
 } satisfies NextAuthConfig;
