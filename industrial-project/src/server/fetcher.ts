@@ -49,9 +49,10 @@ export function initWS() {
 			receivedData = {};
 
 			// Insérez les données dans la base de données
-			db.live
+			db.historicalData
 				.create({
 					data: {
+						timestamp: new Date(),
 						volt: Number(volt),
 						air: Number(air),
 						current: Number(current),
@@ -63,7 +64,7 @@ export function initWS() {
 					},
 				})
 				.then(() => console.log("Ajouté"))
-				.catch((error) => console.error("Erreur lors de l'ajout:", error));
+				.catch((error: any) => console.error("Erreur lors de l'ajout:", error));
 		}
 	});
 }

@@ -174,10 +174,28 @@ export default function Live() {
               }}>
               <CardHeader title="Power" />
               <CardContent>
-                <p>Voltage: {liveData?.volt ?? "N/A"}</p>
-                <p>Current: {liveData?.current ?? "N/A"}</p>
-                <p>Active Power: {liveData?.ActivePower ?? "N/A"}</p>
-                <p>Power Factor: {liveData?.PowerFactor ?? "N/A"}</p>
+                <p>
+                  Voltage:{" "}
+                  {liveData?.volt ? liveData.volt.toFixed(2) + "V" : "N/A"}
+                </p>
+                <p>
+                  Current:{" "}
+                  {liveData?.current
+                    ? liveData.current.toFixed(2) + "A"
+                    : "N/A"}
+                </p>
+                <p>
+                  Active Power:{" "}
+                  {liveData?.ActivePower
+                    ? liveData.ActivePower.toFixed(2) + "W"
+                    : "N/A"}
+                </p>
+                <p>
+                  Power Factor:{" "}
+                  {liveData?.PowerFactor
+                    ? liveData.PowerFactor.toFixed(2)
+                    : "N/A"}
+                </p>
               </CardContent>
             </Card>
           </Grid>
@@ -191,7 +209,12 @@ export default function Live() {
               }}>
               <CardHeader title="Consumption" />
               <CardContent>
-                <p>Energy Consumed: {liveData?.EnergyConsumed ?? "N/A"}</p>
+                <p>
+                  Energy Consumed:{" "}
+                  {liveData?.EnergyConsumed
+                    ? liveData.EnergyConsumed + "Wh"
+                    : "N/A"}
+                </p>
                 <p>Air: {liveData?.air ?? "N/A"}</p>
               </CardContent>
             </Card>

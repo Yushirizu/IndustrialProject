@@ -74,8 +74,9 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
-model Live {
-    id             Int   @id @default(autoincrement())
+model HistoricalData {
+    id             Int      @id @default(autoincrement())
+    timestamp      DateTime
     volt           Float
     air            Float
     current        Float

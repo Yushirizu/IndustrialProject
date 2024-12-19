@@ -29,7 +29,7 @@ export default function Home() {
             sx={{
               fontFamily: "Times New Roman",
               fontWeight: "bold",
-              animation: "rgbShadow 3s infinite",
+              animation: "rgbShadow 2s infinite",
               textDecoration: "underline",
             }}>
             Projix Yape
@@ -131,18 +131,18 @@ export default function Home() {
                   produire des commandes de récipients rempli de billes de
                   différentes couleurs. On peut y choisir la forme du récipient,
                   la couleur ainsi que la quantité des billes souhaitées. Le
-                  système est composé de 10 zones, chacunes traitant différentes
+                  système est composé de 10 zones, chacunes traitant différents
                   aspects.
                 </Typography>
                 <Typography variant="h5" gutterBottom>
                   Le projet
                 </Typography>
                 <Typography variant="body1">
-                  Ce projet industriel est une application web qui permet de
-                  visualiser les données en temps réel d'un système industriel.
-                  On reprend les données via des capteurs, celles-ci sont
-                  transférées de l'automate à un node-red via le protocole
-                  OPC-UA.
+                  Ce projet industriel est une application web permettant de
+                  visualiser les données en temps réel d'un système industriel,
+                  ici, la miniusine 4. On reprend les données via des capteurs,
+                  celles-ci sont transférées de l'automate à un node-red via le
+                  protocole OPC-UA.
                 </Typography>
                 <Typography variant="h5" gutterBottom>
                   Procédure
