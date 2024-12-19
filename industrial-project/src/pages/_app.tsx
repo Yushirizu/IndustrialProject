@@ -37,13 +37,22 @@ const darkTheme = createTheme({
     },
     background: {
       default: "#1a0911",
-      paper: "#211118", // Couleur par défaut (fallback)
+      paper: "rgba(12, 17, 23, 0.5)", // Couleur par défaut (fallback)
     },
     info: {
       main: "#e22379",
     },
     text: {
       primary: "#f5e7ed",
+    },
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          background: "radial-gradient(circle, rgb(2, 27, 52), rgb(5, 7, 10))",
+        },
+      },
     },
   },
 });
