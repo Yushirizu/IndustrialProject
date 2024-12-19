@@ -76,7 +76,14 @@ export default function Home() {
         </Box>
         <Grid container spacing={2}>
           <Grid size={12}>
-            <Card sx={{ mt: 4, p: 4, m: 5, borderRadius: 5 }}>
+            <Card
+              sx={{
+                mt: 4,
+                p: 4,
+                m: 5,
+                borderRadius: 5,
+                boxShadow: "0 0px 10px 0 rgba(41, 120, 215, 0.4)",
+              }}>
               <CardHeader title="Relais" />
               <CardContent>
                 <DataGrid

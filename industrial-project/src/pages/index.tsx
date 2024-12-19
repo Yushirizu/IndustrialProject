@@ -57,7 +57,7 @@ export default function Home() {
         <Card
           sx={{
             p: 2,
-            boxShadow: 3,
+            boxShadow: "0 0px 10px 0 rgba(41, 120, 215, 0.4)",
             m: 5,
             borderRadius: 5,
           }}>
@@ -105,7 +105,13 @@ export default function Home() {
           </CardContent>
         </Card>
 
-        <Card sx={{ p: 2, boxShadow: 3, m: 5, borderRadius: 5 }}>
+        <Card
+          sx={{
+            p: 2,
+            boxShadow: "0 0px 10px 0 rgba(41, 120, 215, 0.4)",
+            m: 5,
+            borderRadius: 5,
+          }}>
           <CardHeader title="Projet Industriel" />
           <CardContent>
             <Box sx={{ display: "flex", alignItems: "flex-start" }}>
