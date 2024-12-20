@@ -21,7 +21,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Container maxWidth="xl" sx={{ mt: 4 }}>
+      <Container maxWidth="xl" sx={{ mt: 4, mb: 4, pb: 2 }}>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <Typography
             variant="h1"

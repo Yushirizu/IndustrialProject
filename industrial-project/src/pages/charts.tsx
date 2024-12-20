@@ -37,7 +37,7 @@ export default function Home() {
             fcc: item.FeedCapCarre,
             fcr: item.FeedCapRound,
           }));
-          setChartData(dataset);
+          setChartData(dataset.slice(-15));
           setbarChartData(dataset.slice(-5));
         });
     }, 10000);
@@ -63,7 +63,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Container maxWidth="xl" sx={{ mt: 4 }}>
+      <Container maxWidth="xl" sx={{ mt: 4, pb: 2 }}>
         <Box mb={4}>
           <Typography variant="h3" gutterBottom>
             Charts
@@ -84,27 +84,36 @@ export default function Home() {
           <CardContent>
             <Box display="flex" justifyContent="center">
               <LineChart
-                xAxis={[{ dataKey: "timestamp" }]}
-                yAxis={[
-                  {
-                    colorMap: {
-                      type: "continuous",
-                      min: -10,
-                      max: 10,
-                      color: ["#811948", "#e22379"],
-                    },
-                    label: "EC",
-                    labelStyle: {
-                      transform: "translateX(-50px)",
-                    },
-                  },
-                ]}
-                series={[{ dataKey: "ec" }]}
-                dataset={chartData}
-                width={1200}
-                height={400}
-                margin={{ left: 100, right: 30, top: 30, bottom: 30 }}
-                grid={{ vertical: true, horizontal: true }}
+              xAxis={[
+                {
+                  scaleType: "band",
+                  dataKey: "timestamp",
+                valueFormatter: (timestamp: string, context) =>
+                  context.location === "tick"
+                    ? new Date(timestamp).toLocaleTimeString()
+                    : new Date(timestamp).toLocaleTimeString(),
+                },
+              ]}
+              yAxis={[
+                {
+                colorMap: {
+                  type: "continuous",
+                  min: -10,
+                  max: 10,
+                  color: ["#811948", "#e22379"],
+                },
+                label: "EC",
+                labelStyle: {
+                  transform: "translateX(-50px)",
+                },
+                },
+              ]}
+              series={[{ dataKey: "ec" }]}
+              dataset={chartData}
+              width={1200}
+              height={400}
+              margin={{ left: 100, right: 30, top: 30, bottom: 30 }}
+              grid={{ vertical: true, horizontal: true }}
               />
             </Box>
           </CardContent>
