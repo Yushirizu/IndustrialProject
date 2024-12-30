@@ -84,36 +84,33 @@ export default function Home() {
           <CardContent>
             <Box display="flex" justifyContent="center">
               <LineChart
-              xAxis={[
-                {
-                  scaleType: "band",
-                  dataKey: "timestamp",
-                valueFormatter: (timestamp: string, context) =>
-                  context.location === "tick"
-                    ? new Date(timestamp).toLocaleTimeString()
-                    : new Date(timestamp).toLocaleTimeString(),
-                },
-              ]}
-              yAxis={[
-                {
-                colorMap: {
-                  type: "continuous",
-                  min: -10,
-                  max: 10,
-                  color: ["#811948", "#e22379"],
-                },
-                label: "EC",
-                labelStyle: {
-                  transform: "translateX(-50px)",
-                },
-                },
-              ]}
-              series={[{ dataKey: "ec" }]}
-              dataset={chartData}
-              width={1200}
-              height={400}
-              margin={{ left: 100, right: 30, top: 30, bottom: 30 }}
-              grid={{ vertical: true, horizontal: true }}
+                xAxis={[
+                  {
+                    scaleType: "band",
+                    dataKey: "timestamp",
+                    valueFormatter: () => new Date().toLocaleTimeString(),
+                  },
+                ]}
+                yAxis={[
+                  {
+                    colorMap: {
+                      type: "continuous",
+                      min: -10,
+                      max: 10,
+                      color: ["#811948", "#e22379"],
+                    },
+                    label: "EC",
+                    labelStyle: {
+                      transform: "translateX(-50px)",
+                    },
+                  },
+                ]}
+                series={[{ dataKey: "ec" }]}
+                dataset={chartData}
+                width={1200}
+                height={400}
+                margin={{ left: 100, right: 30, top: 30, bottom: 30 }}
+                grid={{ vertical: true, horizontal: true }}
               />
             </Box>
           </CardContent>
@@ -135,10 +132,7 @@ export default function Home() {
                   {
                     scaleType: "band",
                     dataKey: "timestamp",
-                    valueFormatter: (timestamp: string, context) =>
-                      context.location === "tick"
-                        ? new Date(timestamp).toLocaleTimeString()
-                        : new Date(timestamp).toLocaleTimeString(),
+                    valueFormatter: () => new Date().toLocaleTimeString(),
                   },
                 ]}
                 series={[
