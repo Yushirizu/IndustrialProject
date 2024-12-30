@@ -77,7 +77,6 @@ export default function Home() {
                 ? `Connecté en tant que ${session.user.name}`
                 : "Non connecté"
             }
-            subheader={session?.user.email}
           />
           <CardContent>
             <Typography variant="body1">
