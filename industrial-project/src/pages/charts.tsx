@@ -88,7 +88,8 @@ export default function Home() {
                   {
                     scaleType: "band",
                     dataKey: "timestamp",
-                    valueFormatter: () => new Date().toLocaleTimeString(),
+                    valueFormatter: (value) =>
+                      new Date(value).toLocaleTimeString(),
                   },
                 ]}
                 yAxis={[
@@ -132,20 +133,21 @@ export default function Home() {
                   {
                     scaleType: "band",
                     dataKey: "timestamp",
-                    valueFormatter: () => new Date().toLocaleTimeString(),
+                    valueFormatter: (value) =>
+                      new Date(value).toLocaleTimeString(),
                   },
                 ]}
                 series={[
                   {
                     dataKey: "fcc",
                     label: "Feed Cap Carre",
-                    valueFormatter: (value) => `${value}`,
+                    //valueFormatter: (value) => `${value}`,
                     color: "#811948",
                   },
                   {
                     dataKey: "fcr",
                     label: "Feed Cap Round",
-                    valueFormatter: (value) => `${value}`,
+                    //valueFormatter: (value) => `${value}`,
                     color: "#e22379",
                   },
                 ]}
