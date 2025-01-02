@@ -22,7 +22,6 @@ let receivedData: LiveData = {
 	FCR: 0,
 };
 
-// WebSocket connection setup
 const ws: WebSocket = new WebSocket("ws://130.130.130.245:1880/ws/live");
 
 export function initWS() {
@@ -32,7 +31,8 @@ export function initWS() {
 
 	ws.addEventListener("message", (msg) => {
 		try {
-			const data: { topic: string; payload: number } = JSON.parse(msg.data);
+			let data: { topic: string; payload: number };
+			data = JSON.parse(msg.data);
 			if (typeof data.topic === "string" && typeof data.payload === "number") {
 				receivedData[data.topic as keyof LiveData] = data.payload;
 			}
@@ -60,7 +60,6 @@ export function initWS() {
 					FCR: FeedCapRound,
 				} = receivedData;
 
-				// Réinitialisez le tableau pour les prochaines données
 				receivedData = {
 					volt: 0,
 					air: 0,
@@ -72,25 +71,19 @@ export function initWS() {
 					FCR: 0,
 				};
 
-				// Mettre à jour la ligne existante dans la base de données
-				db.historicalData
-					.create({
-						data: {
-							timestamp: new Date(),
-							volt: Number(volt),
-							air: Number(air),
-							current: Number(current),
-							ActivePower: Number(ActivePower),
-							PowerFactor: Number(PowerFactor),
-							EnergyConsumed: Number(EnergyConsumed),
-							FeedCapCarre: Number(FeedCapCarre),
-							FeedCapRound: Number(FeedCapRound),
-						},
-					})
-					.then(() => console.log("Données mises à jour"))
-					.catch((error: unknown) =>
-						console.error("Erreur lors de la mise à jour:", error)
-					);
+				db.historicalData.create({
+					data: {
+						timestamp: new Date(),
+						volt: Number(volt),
+						air: Number(air),
+						current: Number(current),
+						ActivePower: Number(ActivePower),
+						PowerFactor: Number(PowerFactor),
+						EnergyConsumed: Number(EnergyConsumed),
+						FeedCapCarre: Number(FeedCapCarre),
+						FeedCapRound: Number(FeedCapRound),
+					},
+				});
 			}
 		} catch (error) {
 			console.error("Données reçues ne sont pas un objet JSON:", msg.data);
