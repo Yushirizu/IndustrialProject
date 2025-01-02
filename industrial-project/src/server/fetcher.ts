@@ -1,4 +1,4 @@
-import { db } from "~/server/db";
+import { db } from "./db";
 
 interface LiveData {
 	volt: number;
@@ -72,10 +72,22 @@ export function initWS() {
 					FCR: 0,
 				};
 
-				// Insérez les données dans la base de données
+				// Mettre à jour la ligne existante dans la base de données
 				db.historicalData
-					.create({
-						data: {
+					.upsert({
+						where: { id: 1 }, // Assurez-vous que l'ID 1 existe ou changez-le en fonction de votre logique
+						update: {
+							timestamp: new Date(),
+							volt: Number(volt),
+							air: Number(air),
+							current: Number(current),
+							ActivePower: Number(ActivePower),
+							PowerFactor: Number(PowerFactor),
+							EnergyConsumed: Number(EnergyConsumed),
+							FeedCapCarre: Number(FeedCapCarre),
+							FeedCapRound: Number(FeedCapRound),
+						},
+						create: {
 							timestamp: new Date(),
 							volt: Number(volt),
 							air: Number(air),
@@ -87,9 +99,9 @@ export function initWS() {
 							FeedCapRound: Number(FeedCapRound),
 						},
 					})
-					.then(() => console.log("Ajouté"))
+					.then(() => console.log("Données mises à jour"))
 					.catch((error: unknown) =>
-						console.error("Erreur lors de l'ajout:", error)
+						console.error("Erreur lors de la mise à jour:", error)
 					);
 			}
 		} catch (error) {
