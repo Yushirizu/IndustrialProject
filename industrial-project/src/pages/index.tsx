@@ -130,7 +130,7 @@ export default function Home() {
                 }}
               />
               <Box>
-                <Typography variant="h5" gutterBottom m={2}>
+                <Typography variant="h5" gutterBottom m={2} fontWeight={700}>
                   Présentation de la mini-usine
                 </Typography>
                 <Typography variant="body1" sx={{ fontSize: "14pt" }}>
@@ -141,7 +141,7 @@ export default function Home() {
                   système est composé de 10 zones, chacunes traitant différents
                   aspects.
                 </Typography>
-                <Typography variant="h5" gutterBottom>
+                <Typography variant="h5" gutterBottom m={2} fontWeight={700}>
                   Le projet
                 </Typography>
                 <Typography variant="body1" sx={{ fontSize: "14pt" }}>
@@ -151,7 +151,7 @@ export default function Home() {
                   celles-ci sont transférées de l'automate à un node-red via le
                   protocole OPC-UA.
                 </Typography>
-                <Typography variant="h5" gutterBottom m={2}>
+                <Typography variant="h5" gutterBottom m={2} fontWeight={700}>
                   Procédure
                 </Typography>
                 <Typography
@@ -159,7 +159,7 @@ export default function Home() {
                   component="div"
                   sx={{ fontSize: "14pt" }}>
                   <ul>
-                    <li>Configuration de l&#39;eWon</li>
+                    <li>Configuration de l'eWon</li>
                     <p>
                       Afin de récupérer les données de l'automate de manière
                       plus sécurisé que d'inconsciemment connecter celui-ci à
