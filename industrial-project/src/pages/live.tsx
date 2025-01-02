@@ -148,10 +148,6 @@ export default function Live() {
     );
   }
 
-  if (error) {
-    return <div>{error}</div>;
-  }
-
   // if (!liveData) {
   //   return (
   //     <div
