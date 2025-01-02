@@ -39,9 +39,7 @@ function ResponsiveAppBar() {
           <Toolbar disableGutters>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages
-                .filter(
-                  (page) => session?.user.isAdmin ?? page.name === "Index"
-                )
+                .filter((page) => session?.user.isAdmin ?? page.name === "Home")
                 .map((page) => (
                   <Button
                     key={page.name}
@@ -86,9 +84,6 @@ function ResponsiveAppBar() {
                   }}
                   open={Boolean(anchorEl)}
                   onClose={handleClose}>
-                  {session?.user.isAdmin ? (
-                    <MenuItem onClick={handleClose}>Admin page</MenuItem>
-                  ) : null}
                   {session ? (
                     <MenuItem onClick={() => signOut()}>LOGOUT</MenuItem>
                   ) : (
