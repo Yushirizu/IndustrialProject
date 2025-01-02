@@ -155,7 +155,7 @@ export default function Home() {
                   <ul>
                     <li>Configuration de l&#39;eWon</li>
                     <p>
-                      Afin de récupérer les données l&#39;un automate de manière
+                      Afin de récupérer les données de l'automate de manière
                       plus sécurisé que d&#39;inconsciemment connecter celui-ci
                       à internet, on utilise un eWon qui va servire de
                       passerelle, de firewall et permet d&#39;avoir un accès VPN
@@ -168,9 +168,21 @@ export default function Home() {
                       utilisant la node OPC-UA Client.
                     </p>
                     <li>Récupération des données</li>
-                    <p>yape bam boom</p>
+                    <p>
+                      Pour récupérer les données sur le Raspberry Pi, il nous
+                      faut un accès au node-red créé précédemment. Pour ce
+                      faire, il faut aller sur la page ayant besoin de ces
+                      données et d'initialiser la connexion entre le WebSocket
+                      et le node-red, récupérant ainsi les données en temps
+                      réelles.{" "}
+                    </p>
                     <li>Configuration du Raspberry pi</li>
-                    <p>en vrai jsp</p>
+                    <p>
+                      Le Raspberry Pi possède une adresse IP fixe afin de
+                      l'identifier facilement sur le réseau. Ensuite, on y a
+                      installer Docker afin de pouvoir créer la stack node-red
+                      pour récupérer les données OPC-UA de l'automate.
+                    </p>
                   </ul>
                 </Typography>
               </Box>
