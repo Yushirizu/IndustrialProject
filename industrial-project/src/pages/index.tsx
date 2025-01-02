@@ -26,38 +26,18 @@ export default function Home() {
           <Typography
             variant="h1"
             sx={{
-              fontFamily: "Times New Roman",
               fontWeight: "bold",
-              animation: "rgbShadow 2s infinite",
-              textDecoration: "underline",
+              background: "linear-gradient(to right, #30CFD0 0%, #330867 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
             }}>
-            Projix Yape
+            Projet Industriel
           </Typography>
-          <style jsx global>{`
-            @keyframes rgbShadow {
-              0% {
-                text-shadow: 0 4px 80px rgba(255, 0, 0, 1);
-                color: rgba(255, 0, 0, 1);
-              }
-              33% {
-                text-shadow: 0 4px 80px rgba(0, 255, 0, 1);
-                color: rgba(0, 255, 0, 1);
-              }
-              66% {
-                text-shadow: 0 4px 80px rgba(0, 0, 255, 1);
-                color: rgba(0, 0, 255, 1);
-              }
-              100% {
-                text-shadow: 0 4px 80px rgba(255, 0, 0, 1);
-                color: rgba(255, 0, 0, 1);
-              }
-            }
-          `}</style>
         </Box>
         <Card
           sx={{
             p: 2,
-            boxShadow: "0 0px 10px 0 rgba(41, 120, 215, 0.4)",
+            boxShadow: "0 0px 5px 0 rgba(41, 120, 215, 0.4)",
             m: 5,
             borderRadius: 5,
           }}>
@@ -107,14 +87,10 @@ export default function Home() {
         <Card
           sx={{
             p: 2,
-            boxShadow: "0 0px 10px 0 rgba(41, 120, 215, 0.4)",
+            boxShadow: "0 0px 5px 0 rgba(41, 120, 215, 0.4)",
             m: 5,
             borderRadius: 5,
           }}>
-          <CardHeader
-            title="Projet Industriel"
-            sx={{ textAlign: "center", fontSize: "24pt" }} // Changed font size to 24pt
-          />
           <CardContent>
             <Box sx={{ display: "flex", alignItems: "flex-start" }}>
               <Image
@@ -130,7 +106,17 @@ export default function Home() {
                 }}
               />
               <Box>
-                <Typography variant="h5" gutterBottom m={2} fontWeight={700}>
+                <Typography
+                  variant="h5"
+                  gutterBottom
+                  m={2}
+                  fontWeight={"bold"}
+                  sx={{
+                    background:
+                      "linear-gradient(to right, #30CFD0 0%, #330867 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}>
                   Présentation de la mini-usine
                 </Typography>
                 <Typography variant="body1" sx={{ fontSize: "14pt" }}>
@@ -141,7 +127,17 @@ export default function Home() {
                   système est composé de 10 zones, chacunes traitant différents
                   aspects.
                 </Typography>
-                <Typography variant="h5" gutterBottom m={2} fontWeight={700}>
+                <Typography
+                  variant="h5"
+                  gutterBottom
+                  m={2}
+                  fontWeight={"bold"}
+                  sx={{
+                    background:
+                      "linear-gradient(to right, #30CFD0 0%, #330867 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}>
                   Le projet
                 </Typography>
                 <Typography variant="body1" sx={{ fontSize: "14pt" }}>
@@ -151,7 +147,17 @@ export default function Home() {
                   celles-ci sont transférées de l'automate à un node-red via le
                   protocole OPC-UA.
                 </Typography>
-                <Typography variant="h5" gutterBottom m={2} fontWeight={700}>
+                <Typography
+                  variant="h5"
+                  gutterBottom
+                  m={2}
+                  fontWeight={"bold"}
+                  sx={{
+                    background:
+                      "linear-gradient(to right, #30CFD0 0%, #330867 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}>
                   Procédure
                 </Typography>
                 <Typography

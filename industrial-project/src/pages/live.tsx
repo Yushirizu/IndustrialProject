@@ -187,7 +187,7 @@ export default function Live() {
             <Card
               sx={{
                 p: 2,
-                boxShadow: "0 0px 10px 0 rgba(41, 120, 215, 0.4)",
+                boxShadow: "0 0px 5px 0 rgba(41, 120, 215, 0.4)",
                 borderRadius: 5,
               }}>
               <CardHeader title="Power" />
@@ -221,7 +221,7 @@ export default function Live() {
             <Card
               sx={{
                 p: 2,
-                boxShadow: "0 0px 10px 0 rgba(41, 120, 215, 0.4)",
+                boxShadow: "0 0px 5px 0 rgba(41, 120, 215, 0.4)",
                 borderRadius: 5,
               }}>
               <CardHeader title="Consumption" />
@@ -237,7 +237,7 @@ export default function Live() {
             <Card
               sx={{
                 p: 2,
-                boxShadow: "0 0px 10px 0 rgba(41, 120, 215, 0.4)",
+                boxShadow: "0 0px 5px 0 rgba(41, 120, 215, 0.4)",
                 borderRadius: 5,
               }}>
               <CardHeader title="Caps" />
