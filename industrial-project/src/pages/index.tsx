@@ -111,7 +111,10 @@ export default function Home() {
             m: 5,
             borderRadius: 5,
           }}>
-          <CardHeader title="Projet Industriel" />
+          <CardHeader
+            title="Projet Industriel"
+            sx={{ textAlign: "center", fontSize: "24pt" }} // Changed font size to 24pt
+          />
           <CardContent>
             <Box sx={{ display: "flex", alignItems: "flex-start" }}>
               <Image
@@ -127,10 +130,10 @@ export default function Home() {
                 }}
               />
               <Box>
-                <Typography variant="h5" gutterBottom>
+                <Typography variant="h5" gutterBottom m={2}>
                   Présentation de la mini-usine
                 </Typography>
-                <Typography variant="body1">
+                <Typography variant="body1" sx={{ fontSize: "14pt" }}>
                   La miniusine 4.0 est un système industriel qui permet de
                   produire des commandes de récipients rempli de billes de
                   différentes couleurs. On peut y choisir la forme du récipient,
@@ -141,27 +144,30 @@ export default function Home() {
                 <Typography variant="h5" gutterBottom>
                   Le projet
                 </Typography>
-                <Typography variant="body1">
+                <Typography variant="body1" sx={{ fontSize: "14pt" }}>
                   Ce projet industriel est une application web permettant de
-                  visualiser les données en temps réel d&#39;un système
-                  industriel, ici, la miniusine 4. On reprend les données via
-                  des capteurs, celles-ci sont transférées de l&#39;automate à
-                  un node-red via le protocole OPC-UA.
+                  visualiser les données en temps réel d'un système industriel,
+                  ici, la miniusine 4. On reprend les données via des capteurs,
+                  celles-ci sont transférées de l'automate à un node-red via le
+                  protocole OPC-UA.
                 </Typography>
-                <Typography variant="h5" gutterBottom>
+                <Typography variant="h5" gutterBottom m={2}>
                   Procédure
                 </Typography>
-                <Typography variant="body1" component="div">
+                <Typography
+                  variant="body1"
+                  component="div"
+                  sx={{ fontSize: "14pt" }}>
                   <ul>
                     <li>Configuration de l&#39;eWon</li>
                     <p>
                       Afin de récupérer les données de l'automate de manière
-                      plus sécurisé que d&#39;inconsciemment connecter celui-ci
-                      à internet, on utilise un eWon qui va servire de
-                      passerelle, de firewall et permet d&#39;avoir un accès VPN
-                      et par conséquent renforcer la securité.
+                      plus sécurisé que d'inconsciemment connecter celui-ci à
+                      internet, on utilise un eWon qui va servir de passerelle,
+                      de firewall ainsi qu'un accès VPN renforçant alors la
+                      securité.
                     </p>
-                    <li>Configuration d&#39;un node-red</li>
+                    <li>Configuration d'un node-red</li>
                     <p>
                       depuis Node-RED, nous avons installé une bibliothèque
                       capable de lire les données provenant du server OPC-UA en
@@ -174,7 +180,7 @@ export default function Home() {
                       faire, il faut aller sur la page ayant besoin de ces
                       données et d'initialiser la connexion entre le WebSocket
                       et le node-red, récupérant ainsi les données en temps
-                      réelles.{" "}
+                      réelles.
                     </p>
                     <li>Configuration du Raspberry pi</li>
                     <p>
