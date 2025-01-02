@@ -74,20 +74,8 @@ export function initWS() {
 
 				// Mettre à jour la ligne existante dans la base de données
 				db.historicalData
-					.upsert({
-						where: { id: 1 }, // Assurez-vous que l'ID 1 existe ou changez-le en fonction de votre logique
-						update: {
-							timestamp: new Date(),
-							volt: Number(volt),
-							air: Number(air),
-							current: Number(current),
-							ActivePower: Number(ActivePower),
-							PowerFactor: Number(PowerFactor),
-							EnergyConsumed: Number(EnergyConsumed),
-							FeedCapCarre: Number(FeedCapCarre),
-							FeedCapRound: Number(FeedCapRound),
-						},
-						create: {
+					.create({
+						data: {
 							timestamp: new Date(),
 							volt: Number(volt),
 							air: Number(air),
