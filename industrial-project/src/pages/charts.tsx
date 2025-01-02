@@ -63,106 +63,106 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<Container maxWidth="xl" sx={{ mt: 4, pb: 2 }}>
-				<Box mb={4}>
-					<Typography variant="h3" gutterBottom>
-						Charts
-					</Typography>
-					<Typography variant="body1">
-						This page displays two charts representing the industrial
-						system&#39;s data.
-					</Typography>
-				</Box>
-				<Card
-					sx={{
-						p: 2,
-						boxShadow: "0 0px 10px 0 rgba(41, 120, 215, 0.4)",
-						m: 5,
-						borderRadius: 5,
-					}}>
-					<CardHeader title="Total energy consumed" />
-					<CardContent>
-						<Box display="flex" justifyContent="center">
-							<LineChart
-								xAxis={[
-									{
-										scaleType: "band",
-										dataKey: "timestamp",
-										valueFormatter: (value) =>
-											new Date(value).toLocaleTimeString(),
-									},
-								]}
-								yAxis={[
-									{
-										colorMap: {
-											type: "continuous",
-											min: -10,
-											max: 10,
-											color: ["#811948", "#e22379"],
-										},
-										label: "EC",
-										labelStyle: {
-											transform: "translateX(-50px)",
-										},
-									},
-								]}
-								series={[{ dataKey: "ec" }]}
-								dataset={chartData}
-								width={1200}
-								height={400}
-								margin={{ left: 100, right: 30, top: 30, bottom: 30 }}
-								grid={{ vertical: true, horizontal: true }}
-							/>
-						</Box>
-					</CardContent>
-				</Card>
+      <Container maxWidth="xl" sx={{ mt: 4, pb: 2 }}>
+        <Box mb={4}>
+          <Typography variant="h3" gutterBottom>
+            Charts
+          </Typography>
+          <Typography variant="body1">
+            This page displays two charts representing the industrial
+            system&#39;s data.
+          </Typography>
+        </Box>
+        <Card
+          sx={{
+            p: 2,
+            boxShadow: "0 0px 5px 0 rgba(41, 120, 215, 0.4)",
+            m: 5,
+            borderRadius: 5,
+          }}>
+          <CardHeader title="Total energy consumed" />
+          <CardContent>
+            <Box display="flex" justifyContent="center">
+              <LineChart
+                xAxis={[
+                  {
+                    scaleType: "band",
+                    dataKey: "timestamp",
+                    valueFormatter: (value) =>
+                      new Date(value).toLocaleTimeString(),
+                  },
+                ]}
+                yAxis={[
+                  {
+                    colorMap: {
+                      type: "continuous",
+                      min: -10,
+                      max: 10,
+                      color: ["#811948", "#e22379"],
+                    },
+                    label: "EC",
+                    labelStyle: {
+                      transform: "translateX(-50px)",
+                    },
+                  },
+                ]}
+                series={[{ dataKey: "ec" }]}
+                dataset={chartData}
+                width={1200}
+                height={400}
+                margin={{ left: 100, right: 30, top: 30, bottom: 30 }}
+                grid={{ vertical: true, horizontal: true }}
+              />
+            </Box>
+          </CardContent>
+        </Card>
 
-				<Card
-					sx={{
-						p: 2,
-						boxShadow: "0 0px 10px 0 rgba(41, 120, 215, 0.4)",
-						m: 5,
-						borderRadius: 5,
-					}}>
-					<CardHeader title="Number of caps" />
-					<CardContent>
-						<Box display="flex" justifyContent="center">
-							<BarChart
-								dataset={barchartData}
-								xAxis={[
-									{
-										scaleType: "band",
-										dataKey: "timestamp",
-										valueFormatter: (value) =>
-											new Date(value).toLocaleTimeString(),
-									},
-								]}
-								series={[
-									{
-										dataKey: "fcc",
-										label: "Feed Cap Carre",
-										//valueFormatter: (value) => `${value}`,
-										color: "#811948",
-									},
-									{
-										dataKey: "fcr",
-										label: "Feed Cap Round",
-										//valueFormatter: (value) => `${value}`,
-										color: "#e22379",
-									},
-								]}
-								height={300}
-								grid={{ horizontal: true }}
-								sx={{
-									[`& .${axisClasses.left} .${axisClasses.label}`]: {
-										transform: "translateX(-10px)",
-									},
-								}}
-							/>
-						</Box>
-					</CardContent>
-				</Card>
-			</Container>
-		</>
-	);
+        <Card
+          sx={{
+            p: 2,
+            boxShadow: "0 0px 5px 0 rgba(41, 120, 215, 0.4)",
+            m: 5,
+            borderRadius: 5,
+          }}>
+          <CardHeader title="Number of caps" />
+          <CardContent>
+            <Box display="flex" justifyContent="center">
+              <BarChart
+                dataset={barchartData}
+                xAxis={[
+                  {
+                    scaleType: "band",
+                    dataKey: "timestamp",
+                    valueFormatter: (value) =>
+                      new Date(value).toLocaleTimeString(),
+                  },
+                ]}
+                series={[
+                  {
+                    dataKey: "fcc",
+                    label: "Feed Cap Carre",
+                    //valueFormatter: (value) => `${value}`,
+                    color: "#811948",
+                  },
+                  {
+                    dataKey: "fcr",
+                    label: "Feed Cap Round",
+                    //valueFormatter: (value) => `${value}`,
+                    color: "#e22379",
+                  },
+                ]}
+                height={300}
+                grid={{ horizontal: true }}
+                sx={{
+                  [`& .${axisClasses.left} .${axisClasses.label}`]: {
+                    transform: "translateX(-10px)",
+                  },
+                }}
+              />
+            </Box>
+          </CardContent>
+        </Card>
+      </Container>
+    </>
+  );
 }

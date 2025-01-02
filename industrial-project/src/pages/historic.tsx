@@ -82,7 +82,7 @@ export default function Home() {
                 p: 4,
                 m: 5,
                 borderRadius: 5,
-                boxShadow: "0 0px 10px 0 rgba(41, 120, 215, 0.4)",
+                boxShadow: "0 0px 5px 0 rgba(41, 120, 215, 0.4)",
               }}>
               <CardHeader title="Relais" />
               <CardContent>
