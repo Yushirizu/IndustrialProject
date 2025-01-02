@@ -43,7 +43,9 @@ export default function Live() {
                     console.log("WebSocket connection established");
                 });
 
-                ws.addEventListener("message", () => {
+                ws.addEventListener("message", (msg) => {
+                    const data = JSON.parse(msg.data as string) as { topic: string; payload: number };
+                    receivedData[data.topic] = data.payload;
                     const requiredKeys = ["volt", "air", "current", "ActivePower", "PowerFactor", "EC", "FCC", "FCR",];
 
                     if (requiredKeys.every((key) => key in receivedData)) {

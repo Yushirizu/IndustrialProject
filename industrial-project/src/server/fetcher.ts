@@ -9,13 +9,16 @@ export function initWS() {
         console.log("Websocket ouvert");
     });
 
-    ws.addEventListener("message", () => {
+    ws.addEventListener("message", (msg) => {
+        const data = JSON.parse(msg.data as string) as { topic: string; payload: number };
+        receivedData[data.topic] = data.payload;
         const requiredKeys = ["volt", "air", "current", "ActivePower", "PowerFactor", "EC", "FCC", "FCR"];
 
         if (requiredKeys.every((key) => key in receivedData)) {
             const {
                 volt, air, current, ActivePower, PowerFactor, EC: EnergyConsumed, FCC: FeedCapCarre, FCR: FeedCapRound,
             } = receivedData;
+
 
             // Réinitialisez le tableau pour les prochaines données
             receivedData = {};
