@@ -24,16 +24,10 @@ export default function Live() {
         data: { user: { isAdmin: boolean } } | null; status: string;
     };
     const [liveData, setLiveData] = useState<LiveData | null>(null);
-    const [isAdmin, setIsAdmin] = useState<boolean>(false);
     let receivedData: Record<string, number> = {};
 
     useEffect(() => {
         if (status === "authenticated") {
-            if (session?.user.isAdmin) {
-                setIsAdmin(true);
-            } else {
-                setIsAdmin(false);
-            }
             let ws: WebSocket;
 
             const connectWebSocket = () => {
@@ -108,7 +102,7 @@ export default function Live() {
         </div>);
     }
 
-    if (status === "unauthenticated" || !isAdmin) {
+    if (status === "unauthenticated" || !session?.user.isAdmin) {
         return (<Container maxWidth="xl">
             <Card sx={{mt: 4, p: 4, m: 5, borderRadius: 5}}>
                 <Typography variant="h4" gutterBottom>
