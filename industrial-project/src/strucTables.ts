@@ -8,7 +8,7 @@ export const tableLive: GridColDef[] = [{
     width: 200,
     align: "center",
     headerAlign: "center",
-    renderCell: (params) => new Date(params.value).toLocaleTimeString(),
+    renderCell: (params) => new Date(params.value as string).toLocaleTimeString(),
     
 }, {field: "volt", headerName: "Volt", width: 200, align: "center", headerAlign: "center"}, {
     field: "air", headerName: "Air consumption", width: 100, align: "center", headerAlign: "center"
