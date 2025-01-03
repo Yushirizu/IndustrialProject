@@ -15,22 +15,28 @@ export default function Home() {
         timestamp: string; EnergyConsumed: number; FeedCapCarre: number; FeedCapRound: number;
     };
     useEffect(() => {
-        setInterval(() => {
-            void (async () => {
-                await fetch("/api/getCharts", {method: "POST"})
-                    .then((response) => response.json())
-                    .then((res: DatasetItem[]) => {
-                        const dataset = res.map((item) => ({
-                            timestamp: item.timestamp,
-                            ec: item.EnergyConsumed,
-                            fcc: item.FeedCapCarre,
-                            fcr: item.FeedCapRound,
-                        }));
-                        setlineChartData(dataset.slice(-15));
-                        setbarChartData(dataset.slice(-5));
-                    });
-            })();
+        const fetchData = async () => {
+            await fetch("/api/getCharts", {method: "POST"})
+                .then((response) => response.json())
+                .then((res: DatasetItem[]) => {
+                    const dataset = res.map((item) => ({
+                        timestamp: item.timestamp,
+                        ec: item.EnergyConsumed,
+                        fcc: item.FeedCapCarre,
+                        fcr: item.FeedCapRound,
+                    }));
+                    setlineChartData(dataset.slice(-15));
+                    setbarChartData(dataset.slice(-5));
+                });
+        };
+
+        fetchData();
+
+        const interval = setInterval(() => {
+            fetchData();
         }, 10000);
+
+        return () => clearInterval(interval);
     }, []);
 
     if (status === "unauthenticated" || session?.user.isAdmin === false) {
