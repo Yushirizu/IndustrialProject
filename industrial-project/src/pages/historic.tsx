@@ -27,7 +27,6 @@ export default function Home() {
         const fetchData = async () => {
             try {
                 const response = await fetch("/api/getHistoric", {method: "POST"});
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 const res: HistoricData[] = await response.json();
                 setHistoricData(res);
             } catch (error) {
