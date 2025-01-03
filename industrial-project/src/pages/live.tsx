@@ -20,9 +20,7 @@ type LiveData = {
 };
 
 export default function Live() {
-    const {data: session, status} = useSession() as {
-        data: { user: { isAdmin: boolean } } | null; status: string;
-    };
+    const {data: session, status} = useSession();
     const [liveData, setLiveData] = useState<LiveData | null>(null);
     let receivedData: Record<string, number> = {};
 
@@ -110,6 +108,7 @@ export default function Live() {
     return (<>
         <Head>
             <title>Live Data</title>
+            <meta name="description" content="Projet industriel"/>
             <link rel="icon" href="/favicon.ico"/>
         </Head>
 

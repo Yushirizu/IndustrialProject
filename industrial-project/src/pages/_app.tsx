@@ -46,8 +46,8 @@ const darkTheme = createTheme({
           background:
             "radial-gradient(circle at top, rgb(2, 27, 52), rgb(5, 7, 10))",
           backgroundRepeat: "no-repeat",
-          backgroundAttachment: "fixed", // Fixe le gradient pour éviter les décalages
-          overflowX: "hidden", // Évite le défilement horizontal
+          backgroundAttachment: "fixed",
+          overflowX: "hidden",
         },
         "#__next": {
           height: "100%",
