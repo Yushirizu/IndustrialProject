@@ -25,7 +25,7 @@ export default function Home() {
         const fetchData = async () => {
             try {
                 const response = await fetch("/api/getHistoric", {method: "POST"});
-                const res: HistoricData[] = await response.json();
+                const res: HistoricData[] = await response.json() as HistoricData[];
                 setHistoricData(res);
             } catch (error) {
                 console.error("Error fetching data:", error);
