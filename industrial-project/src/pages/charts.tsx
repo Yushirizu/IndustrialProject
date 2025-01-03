@@ -30,13 +30,13 @@ export default function Home() {
                 });
         };
 
-        fetchData();
+        void fetchData();
 
-        const interval = setInterval(() => {
-            fetchData();
+        const intervalId = setInterval(() => {
+            void fetchData();
         }, 10000);
 
-        return () => clearInterval(interval);
+        return () => clearInterval(intervalId);
     }, []);
 
     if (status === "unauthenticated" || session?.user.isAdmin === false) {
