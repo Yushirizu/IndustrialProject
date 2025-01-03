@@ -19,11 +19,8 @@ export function initWS() {
                 volt, air, current, ActivePower, PowerFactor, EC: EnergyConsumed, FCC: FeedCapCarre, FCR: FeedCapRound,
             } = receivedData;
 
-
-            // Réinitialisez le tableau pour les prochaines données
             receivedData = {};
 
-            // Insérez les données dans la base de données
             db.historicalData
                 .create({
                     data: {

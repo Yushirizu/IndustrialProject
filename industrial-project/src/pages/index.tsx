@@ -74,7 +74,7 @@ export default function Home() {
                                 src="/images/miniusine4_405.jpg"
                                 alt="SIF405"
                                 width={400}
-                                height={300} // Adjust height as needed
+                                height={300}
                                 style={{
                                     float: "left",
                                     marginRight: "20px",

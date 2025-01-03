@@ -20,8 +20,6 @@ export const db = globalForPrisma.prisma ?? createPrismaClient();
 
 if (env.NODE_ENV !== "production") globalForPrisma.prisma = db;
 
-// Optional: Handle query events if needed
 db.$on('query', (e) => {
-    // Handle query event, e.g., log to a file or external service
     // console.log(e);
 });

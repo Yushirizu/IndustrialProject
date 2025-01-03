@@ -54,11 +54,8 @@ export default function Live() {
                             FCR: FeedCapRound,
                         } = receivedData as LiveData;
 
-                        // Réinitialisez le tableau pour les prochaines données
-
                         receivedData = {};
 
-                        // Mettez à jour l'état avec les nouvelles données
                         setLiveData({
                             volt,
                             air,
@@ -78,8 +75,6 @@ export default function Live() {
 
                 ws.addEventListener("close", () => {
                     console.log("WebSocket connection closed");
-                    // Reconnecter après une fermeture
-                    setTimeout(connectWebSocket, 1000);
                 });
             };
 
